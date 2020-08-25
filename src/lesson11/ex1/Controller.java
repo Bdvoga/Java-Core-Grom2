@@ -12,26 +12,23 @@ public class Controller {
     //1. RequestRooms()
     public Room[] requestRooms(int price, int persons, String city, String hotel) {
         //System.out.println("Controller.requestRooms() was called");
+        Room[] roomsApis0 = apis[0].findRooms(price, persons, city, hotel);
+        Room[] roomsApis1 = apis[1].findRooms(price, persons, city, hotel);
+        Room[] roomsApis2 = apis[2].findRooms(price, persons, city, hotel);
 
-        Room[] roomsRequestRooms = new Room[apis[0].getAll().length * 3];
-        int shift0 = apis[0].findRooms(price, persons, city, hotel).length;
-        int shift1 = apis[1].findRooms(price, persons, city, hotel).length;
-        int k = 0;
-        int l = 0;
-        int countWithoutNull = 0;
+        Room[] roomsRequestRooms = new Room[roomsApis0.length + roomsApis1.length + roomsApis2.length];
 
-        for (int i = 0; i < 3; i++) {
-            if (i == 1)
-                l = 1;
-            else if (i == 2)
-                k = 1;
-
-            for (int j = 0; j < apis[i].findRooms(price, persons, city, hotel).length; j++) {
-                roomsRequestRooms[j + shift0 * k + shift1 * l] = apis[i].findRooms(price, persons, city, hotel)[j];
-                countWithoutNull++;
-            }
+        for (int i = 0; i < roomsApis0.length; i++) {
+            roomsRequestRooms[i] = roomsApis0[i];
         }
-        return deleteNull(roomsRequestRooms, countWithoutNull);
+        for (int i = roomsApis0.length; i < roomsApis0.length + roomsApis1.length; i++) {
+            roomsRequestRooms[i] = roomsApis0[i];
+        }
+        for (int i = roomsApis0.length + roomsApis1.length; i < roomsApis0.length + roomsApis1.length + roomsApis2.length; i++) {
+            roomsRequestRooms[i] = roomsApis0[i];
+        }
+
+        return roomsRequestRooms;
     }
 
     //2. check()
