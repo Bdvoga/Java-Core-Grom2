@@ -22,10 +22,10 @@ public class Controller {
             roomsRequestRooms[i] = roomsApis0[i];
         }
         for (int i = roomsApis0.length; i < roomsApis0.length + roomsApis1.length; i++) {
-            roomsRequestRooms[i] = roomsApis0[i];
+            roomsRequestRooms[i] = roomsApis1[i];
         }
         for (int i = roomsApis0.length + roomsApis1.length; i < roomsApis0.length + roomsApis1.length + roomsApis2.length; i++) {
-            roomsRequestRooms[i] = roomsApis0[i];
+            roomsRequestRooms[i] = roomsApis2[i];
         }
 
         return roomsRequestRooms;
