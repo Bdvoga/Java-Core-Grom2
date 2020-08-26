@@ -38,31 +38,21 @@ public class Controller {
         Room[] a1 = api1.getAll();
         Room[] fullRoomsCheck = new Room[api1.getAll().length];
         int count = 0;
-        int countWithoutNull = 0;
 
-        for (int i = 0; i < a1.length; i++) {
-            Room[] a2 = api2.findRooms(a1[i].getPrice(), a1[i].getPerson(), a1[i].getCityName(), a1[i].getHotelName());
-            for (int j = 0; j < a2.length; j++) {
-                if (a1[i] != null && a2[j] != null && a1[i].getPerson() == a2[j].getPerson() &&
-                        a1[i].getHotelName() == a2[j].getHotelName() &&
-                        a1[i].getCityName() == a2[j].getCityName() &&
-                        a1[i].getPrice() == a2[j].getPrice()) {
-                    fullRoomsCheck[count] = a1[i];
+        for (Room el1 : a1) {
+            Room[] a2 = api2.findRooms(el1.getPrice(), el1.getPerson(), el1.getCityName(), el1.getHotelName());
+            for (Room el2 : a2) {
+                if (el2 != null && el1.getPerson() == el2.getPerson() &&
+                        el1.getHotelName() == el2.getHotelName() &&
+                        el1.getCityName() == el2.getCityName() &&
+                        el1.getPrice() == el2.getPrice()) {
+                    fullRoomsCheck[count] = el1;
                     count++;
-                    countWithoutNull++;
+                    //countWithoutNull++;
                 }
             }
         }
-
-        Room[] roomsCheck = new Room[countWithoutNull];
-        int count1 = 0; // Счетчик результирующего массива без нал ячеек
-        for (Room el : fullRoomsCheck) {
-            if (el != null) {
-                roomsCheck[count1] = el;
-                count1++;
-            }
-        }
-        return roomsCheck;
+        return fullRoomsCheck;
     }
 
     //3. cheapestRoom()
