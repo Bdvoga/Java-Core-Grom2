@@ -36,7 +36,7 @@ public class Controller {
         //System.out.println("Controller.check() was called...");
 
         Room[] a1 = api1.getAll();
-        Room[] roomsCheck = new Room[api1.getAll().length];
+        Room[] fullRoomsCheck = new Room[api1.getAll().length];
         int count = 0;
         int countWithoutNull = 0;
 
@@ -47,13 +47,22 @@ public class Controller {
                         a1[i].getHotelName() == a2[j].getHotelName() &&
                         a1[i].getCityName() == a2[j].getCityName() &&
                         a1[i].getPrice() == a2[j].getPrice()) {
-                    roomsCheck[count] = a1[i];
+                    fullRoomsCheck[count] = a1[i];
                     count++;
                     countWithoutNull++;
                 }
             }
         }
-        return deleteNull(roomsCheck, countWithoutNull);
+
+        Room[] roomsCheck = new Room[countWithoutNull];
+        int count1 = 0; // Счетчик результирующего массива без нал ячеек
+        for (Room el : fullRoomsCheck) {
+            if (el != null) {
+                roomsCheck[count1] = el;
+                count1++;
+            }
+        }
+        return roomsCheck;
     }
 
     //3. cheapestRoom()
@@ -72,16 +81,16 @@ public class Controller {
         return roomCheapestRoom;
     }
 
-    public static Room[] deleteNull(Room[] firstArray, int countWithoutNull) {
-
-        Room[] arrayWithoutNull = new Room[countWithoutNull];
-        int count1 = 0; // Счетчик результирующего массива без нал ячеек
-        for (Room el : firstArray) {
-            if (el != null) {
-                arrayWithoutNull[count1] = el;
-                count1++;
-            }
-        }
-        return arrayWithoutNull;
-    }
+//    public static Room[] deleteNull(Room[] firstArray, int countWithoutNull) {
+//
+//        Room[] arrayWithoutNull = new Room[countWithoutNull];
+//        int count1 = 0; // Счетчик результирующего массива без нал ячеек
+//        for (Room el : firstArray) {
+//            if (el != null) {
+//                arrayWithoutNull[count1] = el;
+//                count1++;
+//            }
+//        }
+//        return arrayWithoutNull;
+//    }
 }
