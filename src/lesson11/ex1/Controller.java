@@ -13,9 +13,12 @@ public class Controller {
     public Room[] requestRooms(int price, int persons, String city, String hotel) {
         //System.out.println("Controller.requestRooms() was called");
 
-        Room[] requestRooms = new Room[apis[0].findRooms(price, persons, city, hotel).length +
-                apis[1].findRooms(price, persons, city, hotel).length +
-                apis[2].findRooms(price, persons, city, hotel).length];
+        int lengthRequestRooms = 0;
+        for (API api : apis) {
+            lengthRequestRooms += api.findRooms(price, persons, city, hotel).length;
+        }
+
+        Room[] requestRooms = new Room[lengthRequestRooms];
 
         int count = 0;
         for (int i = 0; i < 3; i++) {
