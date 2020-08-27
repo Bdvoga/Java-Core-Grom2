@@ -25,16 +25,12 @@ public class BookingComAPI implements API {
         Room[] roomsBookingComAPI = new Room[countWithoutNull];
         int count = 0;
         for (Room el : foolRoomsBookingComAPI) {
-            if (el != null && (el.getPrice() >= price - 100 && el.getPrice() <= price + 100) &&
-                    el.getPerson() == persons &&
-                    el.getCityName() == city &&
-                    el.getHotelName() == hotel) {
+            if (el != null) {
                 roomsBookingComAPI[count] = el;
                 count++;
             }
         }
         //System.out.println("BookingComAPI was called...");
-
         return roomsBookingComAPI;
     }
 

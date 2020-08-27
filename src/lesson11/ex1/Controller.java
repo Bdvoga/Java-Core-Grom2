@@ -35,24 +35,28 @@ public class Controller {
     public Room[] check(API api1, API api2) {
         //System.out.println("Controller.check() was called...");
 
-        Room[] a1 = api1.getAll();
-        Room[] fullRoomsCheck = new Room[api1.getAll().length];
+        Room[] fullRoomsCheck = new Room[api1.getAll().length + api2.getAll().length];
         int count = 0;
+        int countWithoutNull = 0;
 
-        for (Room el1 : a1) {
+        for (Room el1 : api1.getAll()) {
             Room[] a2 = api2.findRooms(el1.getPrice(), el1.getPerson(), el1.getCityName(), el1.getHotelName());
             for (Room el2 : a2) {
-                if (el2 != null && el1.getPerson() == el2.getPerson() &&
-                        el1.getHotelName() == el2.getHotelName() &&
-                        el1.getCityName() == el2.getCityName() &&
-                        el1.getPrice() == el2.getPrice()) {
-                    fullRoomsCheck[count] = el1;
-                    count++;
-                    //countWithoutNull++;
-                }
+                fullRoomsCheck[count] = el2;
+                count++;
+                countWithoutNull++;
             }
         }
-        return fullRoomsCheck;
+        Room[] roomsCheck = new Room[countWithoutNull];
+        count = 0;
+        for (Room el : fullRoomsCheck) {
+            if (el != null) {
+                roomsCheck[count] = el;
+                count++;
+            }
+        }
+
+        return roomsCheck;
     }
 
     //3. cheapestRoom()

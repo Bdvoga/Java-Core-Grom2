@@ -13,6 +13,9 @@ public class Demo {
 
         Room[] rooms = {room1, room2, room3, room4, room5};
 
+        Room[] rooms1 = {room1, room2, room5};
+        Room[] rooms2 = {room2, room3, room4, room5};
+
 //--------------------------------------------
         BookingComAPI bookingComAPI = new BookingComAPI(rooms);
 
@@ -21,14 +24,14 @@ public class Demo {
 
         System.out.println();
 //-------------------------------------------
-        TripAdvisorAPI tripAdvisorAPI = new TripAdvisorAPI(rooms);
+        TripAdvisorAPI tripAdvisorAPI = new TripAdvisorAPI(rooms1);
 
         for (Room el : tripAdvisorAPI.findRooms(200, 3, "C1", "H1"))
             System.out.println(el.getId() + " " + el.getPrice());
 
         System.out.println();
 //---------------------------------------------
-        GoogleAPI googleAPI = new GoogleAPI(rooms);
+        GoogleAPI googleAPI = new GoogleAPI(rooms2);
 
         for (Room el : googleAPI.findRooms(15, 1, "C1", "H1"))
             System.out.println(el.getId() + " " + el.getPrice());
@@ -53,7 +56,7 @@ public class Demo {
         System.out.println();
 
         //3. cheapestRoom()
-        System.out.println(controller.cheapestRoom().getPrice());
+        System.out.println(controller.cheapestRoom().getId() + " " + controller.cheapestRoom().getPrice());
 
     }
 }

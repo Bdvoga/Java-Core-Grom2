@@ -3,22 +3,22 @@ package lesson11.ex1;
 //import static lesson11.ex1.Controller.deleteNull;
 
 public class GoogleAPI implements API {
-    private Room[] rooms;
+    private Room[] rooms2;
 
     public GoogleAPI(Room[] rooms) {
-        this.rooms = rooms;
+        this.rooms2 = rooms;
     }
 
     @Override
     public Room[] findRooms(int price, int persons, String city, String hotel) {
         int countWithoutNull = 0;
-        Room[] fullRoomsGoogleAPI = new Room[rooms.length];
-        for (int i = 0; i < rooms.length; i++) {
-            if (rooms[i].getPrice() == price &&
-                    rooms[i].getPerson() == persons &&
-                    rooms[i].getCityName() == city &&
-                    rooms[i].getHotelName() == hotel) {
-                fullRoomsGoogleAPI[i] = rooms[i];
+        Room[] fullRoomsGoogleAPI = new Room[rooms2.length];
+        for (int i = 0; i < rooms2.length; i++) {
+            if (rooms2[i].getPrice() == price &&
+                    rooms2[i].getPerson() == persons &&
+                    rooms2[i].getCityName() == city &&
+                    rooms2[i].getHotelName() == hotel) {
+                fullRoomsGoogleAPI[i] = rooms2[i];
                 countWithoutNull++;
             }
         }
@@ -26,10 +26,7 @@ public class GoogleAPI implements API {
         Room[] roomsGoogleAPI = new Room[countWithoutNull];
         int count = 0;
         for (Room el : fullRoomsGoogleAPI) {
-            if (el != null && el.getPrice() == price &&
-                    el.getPerson() == persons &&
-                    el.getCityName() == city &&
-                    el.getHotelName() == hotel) {
+            if (el != null) {
                 roomsGoogleAPI[count] = el;
                 count++;
             }
@@ -40,9 +37,9 @@ public class GoogleAPI implements API {
 
     @Override
     public Room[] getAll() {
-        Room[] roomsGetAll = new Room[rooms.length];
-        for (int i = 0; i < rooms.length; i++) {
-            roomsGetAll[i] = rooms[i];
+        Room[] roomsGetAll = new Room[rooms2.length];
+        for (int i = 0; i < rooms2.length; i++) {
+            roomsGetAll[i] = rooms2[i];
         }
         return roomsGetAll;
     }
