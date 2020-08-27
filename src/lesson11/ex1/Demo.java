@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Demo {
     public static void main(String[] args) {
-        Room room1 = new Room(1,1, 1, new Date(), "C1", "H1");
+        Room room1 = new Room(1,25, 1, new Date(), "C1", "H1");
         Room room2 = new Room(2,15, 1, new Date(), "C1", "H1");
         Room room3 = new Room(3,15, 10, new Date(), "C1", "H1");
         Room room4 = new Room(4,200, 4, new Date(), "C1", "H1");

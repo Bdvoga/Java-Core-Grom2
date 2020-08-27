@@ -35,19 +35,21 @@ public class Controller {
     public Room[] check(API api1, API api2) {
         //System.out.println("Controller.check() was called...");
 
-        Room[] fullRoomsCheck = new Room[api1.getAll().length + api2.getAll().length];
+        Room[] fullRoomsCheck = new Room[api1.getAll().length];
         int count = 0;
-        int countWithoutNull = 0;
-
         for (Room el1 : api1.getAll()) {
-            Room[] a2 = api2.findRooms(el1.getPrice(), el1.getPerson(), el1.getCityName(), el1.getHotelName());
-            for (Room el2 : a2) {
-                fullRoomsCheck[count] = el2;
-                count++;
-                countWithoutNull++;
+            for (Room el2 : api2.getAll()) {
+                if (el1.getPrice() == el2.getPrice() &&
+                        el1.getPerson() == el2.getPerson() &&
+                        el1.getHotelName() == el2.getHotelName() &&
+                        el1.getCityName() == el2.getCityName()) {
+
+                    fullRoomsCheck[count] = el1;
+                    count++;
+                }
             }
         }
-        Room[] roomsCheck = new Room[countWithoutNull];
+        Room[] roomsCheck = new Room[count];
         count = 0;
         for (Room el : fullRoomsCheck) {
             if (el != null) {
@@ -55,21 +57,22 @@ public class Controller {
                 count++;
             }
         }
-
         return roomsCheck;
     }
 
     //3. cheapestRoom()
-    Room cheapestRoom() {
+    public Room cheapestRoom() {
         //System.out.println("cheapestRoom() was called...");
 
         int minPrise = apis[0].getAll()[0].getPrice();
         Room roomCheapestRoom = apis[0].getAll()[0];
 
-        for (Room el : apis[0].getAll()) {
-            if (el.getPrice() < minPrise) {
-                roomCheapestRoom = el;
-                minPrise = el.getPrice();
+        for (API api : apis) {
+            for (Room el : api.getAll()) {
+                if (el.getPrice() < minPrise) {
+                    roomCheapestRoom = el;
+                    minPrise = el.getPrice();
+                }
             }
         }
         return roomCheapestRoom;
