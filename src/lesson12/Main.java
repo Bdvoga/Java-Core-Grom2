@@ -27,7 +27,7 @@ public class Main {
         System.out.println(userEUBank2.getBalance());
         System.out.println();
 
-        bankSystem.transferMoney(userChinaBank1, userEUBank1, 100);
+        bankSystem.transferMoney(userChinaBank1, userEUBank1, 1000);
         System.out.println(userChinaBank1.getBalance());
         bankSystem.withdraw(userChinaBank2, 100);
         System.out.println(userChinaBank2.getBalance());
