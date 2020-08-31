@@ -1,7 +1,8 @@
-package lesson9.Ex6UserRepository;
+package lesson13;
 
 public class UserRepository {
-    private User[] users;
+    //private User[] users;
+    private User[] users = new User[10];
 
     public UserRepository(User[] users) {
         this.users = users;
@@ -70,5 +71,4 @@ public class UserRepository {
         }
         return null;
     }
-
 }
