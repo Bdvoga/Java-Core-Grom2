@@ -18,7 +18,6 @@ public class UserRepository {
     // part 5.1 update
     public User update(User user) {
         if (findById(user.getId()) == null) {
-
             return null;
         }
         // если есть, обновляем и возвращаем.

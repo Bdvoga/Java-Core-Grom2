@@ -20,7 +20,6 @@ public class Demo {
     public static void main(String[] args) {
         System.out.println(findById(user4.getId()));
         System.out.println(save(user4));
-
 }
 
    // 3.2 Есть ли такой юзер (проверяем по id)
@@ -31,7 +30,6 @@ public class Demo {
             }
             if (el.getId() == id)
                 return el;
-
         }
         return null;
     }
@@ -49,7 +47,6 @@ public class Demo {
                 return userRepository.getUsers()[i];
             }
         }
-
         return null;
     }
 
