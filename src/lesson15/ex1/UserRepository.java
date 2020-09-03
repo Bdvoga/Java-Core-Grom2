@@ -1,7 +1,5 @@
 package lesson15.ex1;
 
-import java.util.Arrays;
-
 public class UserRepository {
     private User[] users;
 
