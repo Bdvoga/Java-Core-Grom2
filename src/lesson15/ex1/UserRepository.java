@@ -37,7 +37,7 @@ public class UserRepository {
             return null;
         }
         for (User el : users) {
-            if (el == findUser(user)) {
+            if (el.equals(user)) {
                 el.setSessionId("asdfg");
                 return el;
             }
