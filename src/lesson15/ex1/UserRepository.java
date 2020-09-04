@@ -33,9 +33,9 @@ public class UserRepository {
     }
 
     public User update(User user) {
-        if (user == null || findUser(user) == null) {
-            return null;
-        }
+//        if (user == null || findUser(user) == null) {
+//            return null;
+//        }
         for (User el : users) {
             if (el.equals(user)) {
                 el.setSessionId("asdfg");

@@ -32,6 +32,7 @@ public class Demo {
         //Проверяем работу update
         System.out.println(userRepository.update(user1)); //юзер есть
         System.out.println(userRepository.update(user6)); //юзера нет
+        System.out.println(userRepository.update(null));
         for (User el : users) {
             System.out.println(el);
         }
