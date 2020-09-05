@@ -9,51 +9,45 @@ public class Demo {
         User user4 = new User(555, "Sam", "sss");
         User user5 = null;
         User user6 = new User(666, "noname", "fff");
+        User user7 = new User(222, "New Name", "New sessionId");
 
         User[] users = {user, user1, user2, user3, null};
 
         UserRepository userRepository = new UserRepository(users);
 
         //Проверяем работу findUser
-//        System.out.println("Проверяем работу findUser");
-//        System.out.println(userRepository.findUser(user)); // существующий
-//        System.out.println(userRepository.findUser(user4)); // не существующий
-//        System.out.println(userRepository.findUser(user5)); // null
-//        System.out.println();
+        System.out.println("Проверяем работу findUser");
+        System.out.println(userRepository.findUser(user)); // существующий
+        System.out.println(userRepository.findUser(user4)); // не существующий
+        System.out.println(userRepository.findUser(user5)); // null
+        System.out.println();
 
         //Проверяем работу save
-//        System.out.println("Проверяем работу save");
-//        System.out.println(userRepository.save(user4)); // новый
-//        System.out.println(userRepository.save(user1)); // существующий
-//        System.out.println(userRepository.save(user1)); // добавляем null
-//        for (User el : users) {
-//            System.out.println(el);
-//        }
-//        System.out.println();
-
-        //Проверяем работу update
-        System.out.println("Проверяем работу update");
-        //System.out.println(userRepository.update(user1)); //юзер есть
-
+        System.out.println("Проверяем работу save");
+        System.out.println(userRepository.save(user4)); // новый
+        System.out.println(userRepository.save(user1)); // существующий
+        System.out.println(userRepository.save(user1)); // добавляем null
         for (User el : users) {
             System.out.println(el);
         }
-
-        userRepository.update(user1);
         System.out.println();
-//        System.out.println(userRepository.update(user6)); //юзера нет
-//        System.out.println(userRepository.update(null));
+
+        //Проверяем работу update
+        System.out.println("Проверяем работу update");
+        System.out.println(userRepository.update(user7)); //юзер есть
+        System.out.println(userRepository.update(user6)); //юзера нет
+        System.out.println(userRepository.update(null));
         for (User el : users) {
             System.out.println(el);
         }
         System.out.println();
 
         //Проверяем работу delete
-//        System.out.println("Проверяем работу delete");
-//        userRepository.delete(111); // удаляем существующего
-//        userRepository.delete(123); // удаляем не существующего
-//        for (User el : users) {
-//            System.out.println(el);
-//        }
+        System.out.println("Проверяем работу delete");
+        userRepository.delete(111); // удаляем существующего
+        userRepository.delete(123); // удаляем не существующего
+        for (User el : users) {
+            System.out.println(el);
+        }
     }
 }
