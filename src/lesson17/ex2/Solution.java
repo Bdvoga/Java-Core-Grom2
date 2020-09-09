@@ -1,6 +1,6 @@
-package lesson17;
+package lesson17.ex2;
 
-public class Solution2 {
+public class Solution {
     public static void main(String[] args) {
         String str1 = "aa bbb cccccc dd";
         String str2 = "    ";

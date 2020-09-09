@@ -1,6 +1,6 @@
-package lesson17;
+package lesson17.ex1;
 
-public class Solution1 {
+public class Solution {
     public static void main(String[] args) {
 
         System.out.println(countWords("Hello wor#ld one hel5p ttt     "));
