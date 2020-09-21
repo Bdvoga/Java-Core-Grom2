@@ -20,7 +20,7 @@ public class Solution {
             boolean flag = true;
             char[] chars = word.toCharArray();
             for (char ch : chars) {
-                if ((char) ch >= 32 && (char) ch <=64) {
+                if ((char) ch >= 32 && (char) ch <= 64) {
                     flag = false;
                     break;
                 }
