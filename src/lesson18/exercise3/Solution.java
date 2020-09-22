@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Solution {
 
     public static void main(String[] args) {
-        String text = "22 6 ggg 7 6.7 0";
+        String text = "22 6 ggg  7 6.7 0";
         System.out.println(Arrays.toString(findNumber(text)));
 
     }
