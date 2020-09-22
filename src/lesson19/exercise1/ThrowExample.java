@@ -1,4 +1,4 @@
-package lesson19;
+package lesson19.exercise1;
 
 public class ThrowExample {
     private static String[] array = {"test", "test1", null};
