@@ -1,7 +1,5 @@
 package lesson19.exercise2;
 
-import java.util.Arrays;
-
 public class Controller {
     public static void put(Storage storage, File file) throws Exception {
         // Есть ли свободные ячейки в хранилище + запоминаем номер такой ячейки
@@ -56,12 +54,19 @@ public class Controller {
     }
 
     public static void delete(Storage storage, File file) throws Exception {
+        boolean flag = false;
         for (int i = 0; i < storage.getFiles().length; i++) {
-            if (storage.getFiles()[i].equals(file)) {
+            if (storage.getFiles()[i] != null && storage.getFiles()[i].equals(file)) {
                 storage.getFiles()[i] = null;
                 System.out.println("Файл id=" + file.getId() + " был удален из хранилища " + storage.getId());
+                flag = true;
                 break;
             }
+        }
+
+        if (!flag) {
+            throw new Exception("В хранилище " + storage.getId() +
+                    " не найден файл " + file.getId());
         }
         System.out.println("delete finished");
     }
@@ -166,7 +171,5 @@ public class Controller {
             storageTo.getFiles()[numberOfSpaceTo[i]] = storageFrom.getFiles()[numberOfFilesFrom[i]];
             storageFrom.getFiles()[numberOfFilesFrom[i]] = null;
         }
-
     }
-
 }

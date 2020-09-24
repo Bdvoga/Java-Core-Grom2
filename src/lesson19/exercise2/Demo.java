@@ -1,7 +1,5 @@
 package lesson19.exercise2;
 
-import java.util.Arrays;
-
 public class Demo {
     public static void main(String[] args) {
         try {
@@ -12,13 +10,12 @@ public class Demo {
             File file5 = new File(5, "file5", "mkv", 30);
             File file6 = new File(6, "file6", "mkv", 10);
             File file7 = new File(7, "file7", "png", 30);
-            File file8 = new File(8, "file8", "png", 5);
-
+            File file8 = new File(8, "file8", "doc", 31);
 
             File[] files1 = {file1, file2, null, file3, null, null, null};
             File[] files2 = {file4, file5, file6, null};
 
-            String[] formatSupported1 = {"txt", "png"};
+            String[] formatSupported1 = {"txt", "png", "mkv"};
             String[] formatSupported2 = {"mkv", "mp3", "txt"};
 
             Storage storage1 = new Storage(1, files1, formatSupported1, "USA", 250);
@@ -32,7 +29,7 @@ public class Demo {
             Storage storage4 = new Storage(4, files4, formatSupported4, "USA", 600);
 
             // Проверяем метод put
-            Controller.put(storage1, file7);
+            Controller.put(storage1, file6);
             for (File el : storage1.getFiles()) {
                 if (el != null)
                     System.out.println(el.getId() + " " + el.getName() + " " + el.getFormat() + " " + el.getSize());
