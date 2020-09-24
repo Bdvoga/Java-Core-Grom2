@@ -66,13 +66,13 @@ public class Controller {
         System.out.println("delete finished");
     }
 
-    public static void transferFile(Storage storageFrom, Storage storageTo, long id) throws Exception{
+    public static void transferFile(Storage storageFrom, Storage storageTo, long id) throws Exception {
         // Получаем данные переносимого файла
         long fileSize = 0;
         String fileFormat = "";
         int countFrom = 0;
         File fileForTransfer = new File(0, "", "", 0);
-        for (int i  = 0; i < storageFrom.getFiles().length; i++) { // Размер переносимого файла
+        for (int i = 0; i < storageFrom.getFiles().length; i++) { // Размер переносимого файла
             if (storageFrom.getFiles()[i].getId() == id) {
                 fileSize = storageFrom.getFiles()[i].getSize();
                 fileFormat = storageFrom.getFiles()[i].getFormat();
@@ -136,12 +136,12 @@ public class Controller {
         System.out.println("transfer finished");
     }
 
-    public static void transferAll(Storage storageFrom, Storage storageTo) throws Exception{
+    public static void transferAll(Storage storageFrom, Storage storageTo) throws Exception {
         // Хватит ли свободных ячеек для переноса
         // 1. Есть ли свободные ячейки в хранилище + колличество + запоминаем номер таких ячеек
         int countFreeSpaceTo = 0; // кол-во свободных ячеек приемника
         int[] numberOfSpaceTo = new int[storageTo.getFiles().length]; // массив свободных адресов приемника
-        for (int i  = 0; i < storageTo.getFiles().length; i++) {
+        for (int i = 0; i < storageTo.getFiles().length; i++) {
             if (storageTo.getFiles()[i] == null) {
                 numberOfSpaceTo[countFreeSpaceTo] = i;
                 countFreeSpaceTo++;
@@ -151,7 +151,7 @@ public class Controller {
         // 2. Сколько файлов переносим + адреса переносимых файлов
         int countFilesFrom = 0; // кол-во файлов для передачи
         int[] numberOfFilesFrom = new int[storageFrom.getFiles().length]; // массив адресов файлов для передачи
-        for (int i  = 0; i < storageFrom.getFiles().length; i++) {
+        for (int i = 0; i < storageFrom.getFiles().length; i++) {
             if (storageFrom.getFiles()[i] != null) {
                 numberOfFilesFrom[countFilesFrom] = i;
                 countFilesFrom++;
