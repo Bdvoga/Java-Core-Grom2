@@ -68,71 +68,20 @@ public class Controller {
 
     public static void transferFile(Storage storageFrom, Storage storageTo, long id) throws Exception {
         // Получаем данные переносимого файла
-        long fileSize = 0;
-        String fileFormat = "";
         int countFrom = 0;
-        File fileForTransfer = new File(0, "", "", 0);
+        //File fileForTransfer = new File(0, "", "", 0);
         for (int i = 0; i < storageFrom.getFiles().length; i++) { // Размер переносимого файла
             if (storageFrom.getFiles()[i].getId() == id) {
-                fileSize = storageFrom.getFiles()[i].getSize();
-                fileFormat = storageFrom.getFiles()[i].getFormat();
                 countFrom = i;
-                fileForTransfer = storageFrom.getFiles()[i]; // сохранили в file переносимый файл
                 break;
             }
         }
 
-        // Есть ли свободные ячейки в хранилище + запоминаем номер такой ячейки
-        boolean flag = false;
-        int countTo = 0;
-        for (int i = 0; i < storageTo.getFiles().length; i++) {
-            if (storageTo.getFiles()[i] == null) {
-                flag = true;
-                countTo = i; // свободная ячейка
-                break;
-            }
-        }
-        if (!flag) {
-            throw new Exception("В хранилище " + storageTo.getId() +
-                    " нет свободных ячеек для переноса файла id=" + id);
-        }
+        // Записываем файл в storageTo
+        put(storageTo, storageFrom.getFiles()[countFrom]);
 
-        // Проверка формата файла
-        flag = false;
-        for (String el : storageTo.getFormatSupported()) {
-            if (fileFormat.equals(el)) {
-                flag = true;
-                break;
-            }
-        }
-        if (!flag) {
-            throw new Exception("Неподдерживаемый формат файла id=" + id +
-                    " для хранилища id=" + storageTo.getId());
-        }
-
-        // Проверка свободного места в хранилище storageTo
-        long sizeTo = 0;
-        for (File el : storageTo.getFiles()) { // Занято в хранилище
-            if (el != null)
-                sizeTo += el.getSize();
-        }
-
-        if (storageTo.getStorageSize() - sizeTo < fileSize) {
-            throw new Exception("Недостаточно свободного места для переноса файла id=" + id +
-                    " в хранилище id=" + storageTo.getId());
-        }
-
-        // Проверка уникальности ид
-        for (File el : storageTo.getFiles()) {
-            if (el != null && id == el.getId()) {
-                throw new Exception("В хранилище id=" + storageTo.getId() + " есть файл с id=" + id);
-            }
-        }
-
-        // Удаляем файл из хранилища From и записываем его в хранилище То
+        // Удаляем файл из хранилища From
         storageFrom.getFiles()[countFrom] = null;
-        storageTo.getFiles()[countTo] = fileForTransfer;
-
         System.out.println("transfer finished");
     }
 

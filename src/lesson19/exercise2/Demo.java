@@ -16,7 +16,7 @@ public class Demo {
 
 
             File[] files1 = {file1, file2, null, file3, null, null, null};
-            File[] files2 = {file4, file5, file6};
+            File[] files2 = {file4, file5, file6, null};
 
             String[] formatSupported1 = {"txt", "png"};
             String[] formatSupported2 = {"mkv", "mp3", "txt"};
@@ -73,13 +73,8 @@ public class Demo {
             }
             System.out.println();
 
-
         } catch (Exception e) {
             System.out.println("error: " + e.getMessage());
         }
-
-
-
     }
-
 }
