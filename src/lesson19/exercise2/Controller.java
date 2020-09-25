@@ -2,51 +2,11 @@ package lesson19.exercise2;
 
 public class Controller {
     public static void put(Storage storage, File file) throws Exception {
-        // Есть ли свободные ячейки в хранилище + запоминаем номер такой ячейки
-        boolean flag = false;
-        int count = 0;
-        for (int i = 0; i < storage.getFiles().length; i++) {
-            if (storage.getFiles()[i] == null) {
-                flag = true;
-                count = i;
-                break;
-            }
-        }
-        if (!flag) {
-            throw new Exception("В хранилище " + storage.getId() +
-                    " нет свободных ячеек для файла " + file.getId());
-        }
 
-        // Проверка формата файла
-        flag = false;
-        for (String el : storage.getFormatSupported()) {
-            if (file.getFormat().equals(el)) {
-                flag = true;
-                break;
-            }
-        }
-        if (!flag) {
-            throw new Exception("Неподдерживаемый формат файла " + file.getId() +
-                    " для хранилища " + storage.getId());
-        }
-
-        // Проверка свободного места в хранилище
-        long size = 0;
-        for (File el : storage.getFiles()) { // Занято в хранилище
-            if (el != null)
-                size += el.getSize();
-        }
-        if (storage.getStorageSize() - size < file.getSize()) {
-            throw new Exception("Недостаточно свободного места для файла " + file.getId() +
-                    " для хранилища " + storage.getId());
-        }
-
-        // Проверка уникальности ид
-        for (File el : storage.getFiles()) {
-            if (el != null && file.getId() == el.getId()) {
-                throw new Exception("В хранилище " + storage.getId() + " есть файл с id " + file.getId());
-            }
-        }
+        int count = ifFreeCell(storage, file); // Есть ли свободные ячейки
+        ifHaveFormat(storage, file); // Поддерживает ли хранилище формат файла
+        ifFreeSpace(storage, file); // Достаточно ли свободного места
+        ifId(storage, file); // Проверка на дубль id
 
         // Сохраняем файл в хранилище
         storage.getFiles()[count] = file;
@@ -170,6 +130,61 @@ public class Controller {
         for (int i = 0; i < countFilesFrom; i++) { // Проходим по массиву адресов переносимых файлов
             storageTo.getFiles()[numberOfSpaceTo[i]] = storageFrom.getFiles()[numberOfFilesFrom[i]];
             storageFrom.getFiles()[numberOfFilesFrom[i]] = null;
+        }
+    }
+
+    private static int ifFreeCell(Storage storage, File file) throws Exception {
+        // Есть ли свободные ячейки в хранилище + запоминаем номер такой ячейки
+        boolean flag = false;
+        int count = 0;
+        for (int i = 0; i < storage.getFiles().length; i++) {
+            if (storage.getFiles()[i] == null) {
+                flag = true;
+                count = i;
+                break;
+            }
+        }
+        if (!flag) {
+            throw new Exception("В хранилище " + storage.getId() +
+                    " нет свободных ячеек для файла " + file.getId());
+        }
+        return count;
+    }
+
+    public static void ifHaveFormat(Storage storage, File file) throws Exception {
+        // Проверка формата файла
+        boolean flag = false;
+        for (String el : storage.getFormatSupported()) {
+            if (file.getFormat().equals(el)) {
+                flag = true;
+                break;
+            }
+        }
+        if (!flag) {
+            throw new Exception("Неподдерживаемый формат файла " + file.getId() +
+                    " для хранилища " + storage.getId());
+        }
+    }
+
+    public static void ifFreeSpace(Storage storage, File file) throws Exception {
+        // Проверка свободного места в хранилище
+        long size = 0;
+        for (File el : storage.getFiles()) { // Занято в хранилище
+            if (el != null)
+                size += el.getSize();
+        }
+        if (storage.getStorageSize() - size < file.getSize()) {
+            throw new Exception("Недостаточно свободного места для файла " + file.getId() +
+                    " для хранилища " + storage.getId());
+        }
+    }
+
+    public static void ifId(Storage storage, File file) throws Exception {
+        // Проверка уникальности ид
+        for (File el : storage.getFiles()) {
+            if (el != null && file.getId() == el.getId()) {
+                throw new Exception("В хранилище " + storage.getId() + " есть файл с id " + file.getId());
+            }
         }
     }
 }
