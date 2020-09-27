@@ -1,16 +1,12 @@
 package lesson19.exercise2;
 
 public class Controller {
-//    int[] addressesTo;
-//    int[] addressesFrom;
-//    Addresses[] addresses = new Addresses(addressesTo, addressesFrom);
 
     public static void put(Storage storage, File file) throws Exception {
-
         int count = ifFreeCell(storage, file); // Есть ли свободные ячейки
         ifHaveFormat(storage, file); // Поддерживает ли хранилище формат файла
         ifFreeSpace(storage, file); // Достаточно ли свободного места
-        ifId(storage, file); // Проверка на дубль id
+        ifDoubleId(storage, file); // Проверка на дубль id
 
         // Сохраняем файл в хранилище
         storage.getFiles()[count] = file;
@@ -18,21 +14,14 @@ public class Controller {
     }
 
     public static void delete(Storage storage, File file) throws Exception {
-        boolean flag = false;
         for (int i = 0; i < storage.getFiles().length; i++) {
             if (storage.getFiles()[i] != null && storage.getFiles()[i].equals(file)) {
                 storage.getFiles()[i] = null;
-                System.out.println("Файл id=" + file.getId() + " был удален из хранилища " + storage.getId());
-                flag = true;
-                break;
+                System.out.println("Файл id=" + file.getId() + " был удален из хранилища id=" + storage.getId());
+                return;
             }
         }
-
-        if (!flag) {
-            throw new Exception("В хранилище " + storage.getId() +
-                    " не найден файл " + file.getId());
-        }
-        System.out.println("delete finished");
+        throw new Exception("В хранилище id=" + storage.getId() + " не найден файл id=" + file.getId());
     }
 
     public static void transferFile(Storage storageFrom, Storage storageTo, long id) throws Exception {
@@ -57,7 +46,7 @@ public class Controller {
         int[][] addr = ifAddressAll(storageFrom, storageTo); // Наличие свободных ячеек для переноса + кол-во переносимых файлов
         ifFormatAll(storageFrom, storageTo); // Поддерживаются ли форматы
         ifSpaceAll(storageFrom, storageTo);
-        IfIdAll(storageFrom, storageTo);
+        IfDoubleIdAll(storageFrom, storageTo);
 
         // Переносим файлы
         for (int i = 0; i < addr[0].length; i++) { // Проходим по массиву адресов переносимых файлов
@@ -66,38 +55,27 @@ public class Controller {
         }
     }
 
-    // Блок методов проверок для метода transfer
+    // Блок методов проверок для методов put и transfer
     private static int ifFreeCell(Storage storage, File file) throws Exception {
         // Есть ли свободные ячейки в хранилище + запоминаем номер такой ячейки
-        boolean flag = false;
         int count = 0;
         for (int i = 0; i < storage.getFiles().length; i++) {
             if (storage.getFiles()[i] == null) {
-                flag = true;
                 count = i;
-                break;
+                return count;
             }
         }
-        if (!flag) {
-            throw new Exception("В хранилище " + storage.getId() +
-                    " нет свободных ячеек для файла " + file.getId());
-        }
-        return count;
+        throw new Exception("В хранилище id=" + storage.getId() + " нет свободных ячеек для файла id=" + file.getId());
     }
 
     private static void ifHaveFormat(Storage storage, File file) throws Exception {
         // Проверка формата файла
-        boolean flag = false;
         for (String el : storage.getFormatSupported()) {
             if (file.getFormat().equals(el)) {
-                flag = true;
-                break;
+                return;
             }
         }
-        if (!flag) {
-            throw new Exception("Неподдерживаемый формат файла " + file.getId() +
-                    " для хранилища " + storage.getId());
-        }
+        throw new Exception("Неподдерживаемый формат файла id=" + file.getId() + " для хранилища id=" + storage.getId());
     }
 
     private static void ifFreeSpace(Storage storage, File file) throws Exception {
@@ -108,16 +86,16 @@ public class Controller {
                 size += el.getSize();
         }
         if (storage.getStorageSize() - size < file.getSize()) {
-            throw new Exception("Недостаточно свободного места для файла " + file.getId() +
-                    " для хранилища " + storage.getId());
+            throw new Exception("Недостаточно свободного места для файла id=" + file.getId() +
+                    " для хранилища id=" + storage.getId());
         }
     }
 
-    private static void ifId(Storage storage, File file) throws Exception {
+    private static void ifDoubleId(Storage storage, File file) throws Exception {
         // Проверка уникальности ид
         for (File el : storage.getFiles()) {
             if (el != null && file.getId() == el.getId()) {
-                throw new Exception("В хранилище " + storage.getId() + " есть файл с id " + file.getId());
+                throw new Exception("В хранилище id=" + storage.getId() + " есть файл с id=" + file.getId());
             }
         }
     }
@@ -187,24 +165,20 @@ public class Controller {
         }
     }
 
-    private static void IfIdAll(Storage storageFrom, Storage storageTo) throws Exception {
+    private static void IfDoubleIdAll(Storage storageFrom, Storage storageTo) throws Exception {
         //Проверка на уникальность id
-        boolean flag = true;
         long id1 = 0, id2 = 0;
         for (int i = 0; i < storageFrom.getFiles().length; i++) {
             for (int j = 0; j < storageTo.getFiles().length; j++) {
                 if (storageFrom.getFiles()[i] != null && storageTo.getFiles()[j] != null &&
                         storageFrom.getFiles()[i].getId() == storageTo.getFiles()[j].getId()) {
-                    flag = false;
                     id1 = storageFrom.getFiles()[i].getId();
                     id2 = storageTo.getFiles()[j].getId();
+                    throw new Exception("Совпадют id=" + id1 + " из хранилища id=" + storageFrom.getId() +
+                            " и id=" + id2 + " из хранилища id=" + storageTo.getId());
                 }
             }
         }
-
-        if (!flag) {
-            throw new Exception("Совпадют id=" + id1 + " из хранилища id=" + storageFrom.getId() +
-                    " и id=" + id2 + " из хранилища id=" + storageTo.getId());
-        }
     }
+
 }
