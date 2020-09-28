@@ -3,12 +3,19 @@ package lesson19.exercise2;
 public class Controller {
 
     public static void put(Storage storage, File file) throws Exception {
-        int count = ifFreeCell(storage, file); // Есть ли свободные ячейки
+        ifFreeCell(storage, file); // Есть ли свободные ячейки
         ifHaveFormat(storage, file); // Поддерживает ли хранилище формат файла
         ifFreeSpace(storage, file); // Достаточно ли свободного места
         ifDoubleId(storage, file); // Проверка на дубль id
 
         // Сохраняем файл в хранилище
+        int count = 0;
+        for (int i = 0; i < storage.getFiles().length; i++) {
+            if (storage.getFiles()[i] == null) {
+                count = i;
+            }
+        }
+
         storage.getFiles()[count] = file;
         System.out.println("put finished");
     }
@@ -43,26 +50,45 @@ public class Controller {
     }
 
     public static void transferAll(Storage storageFrom, Storage storageTo) throws Exception {
-        int[][] addr = ifAddressAll(storageFrom, storageTo); // Наличие свободных ячеек для переноса + кол-во переносимых файлов
+        ifAddressAll(storageFrom, storageTo); // Наличие свободных ячеек для переноса + кол-во переносимых файлов
         ifFormatAll(storageFrom, storageTo); // Поддерживаются ли форматы
         ifSpaceAll(storageFrom, storageTo);
         IfDoubleIdAll(storageFrom, storageTo);
 
         // Переносим файлы
-        for (int i = 0; i < addr[0].length; i++) { // Проходим по массиву адресов переносимых файлов
-            storageTo.getFiles()[addr[1][i]] = storageFrom.getFiles()[addr[0][i]];
-            storageFrom.getFiles()[addr[0][i]] = null;
+        // 1. Адреса ячеек To
+        int countFreeCellTo = 0; // кол-во свободных ячеек приемника
+        int[] numberOfCellTo = new int[storageTo.getFiles().length];
+        for (int i = 0; i < storageTo.getFiles().length; i++) {
+            if (storageTo.getFiles()[i] == null) {
+                numberOfCellTo[countFreeCellTo] = i; // массив свободных адресов приемника
+                countFreeCellTo++;
+            }
+        }
+
+        // 2. Сколько файлов переносим + адреса переносимых файлов
+        int countFilesFrom = 0; // кол-во файлов для передачи
+        int[] numberOfFilesFrom = new int[storageFrom.getFiles().length];
+        for (int i = 0; i < storageFrom.getFiles().length; i++) {
+            if (storageFrom.getFiles()[i] != null) {
+                numberOfFilesFrom[countFilesFrom] = i; // массив адресов файлов для передачи
+                countFilesFrom++;
+            }
+        }
+
+        // 3. Переносим
+        for (int i = 0; i < numberOfFilesFrom.length; i++) { // Проходим по массиву адресов переносимых файлов
+            storageTo.getFiles()[numberOfCellTo[i]] = storageFrom.getFiles()[numberOfFilesFrom[i]];
+            storageFrom.getFiles()[numberOfFilesFrom[i]] = null;
         }
     }
 
     // Блок методов проверок для методов put и transfer
-    private static int ifFreeCell(Storage storage, File file) throws Exception {
+    private static void ifFreeCell(Storage storage, File file) throws Exception {
         // Есть ли свободные ячейки в хранилище + запоминаем номер такой ячейки
-        int count = 0;
         for (int i = 0; i < storage.getFiles().length; i++) {
             if (storage.getFiles()[i] == null) {
-                count = i;
-                return count;
+                return;
             }
         }
         throw new Exception("В хранилище id=" + storage.getId() + " нет свободных ячеек для файла id=" + file.getId());
@@ -101,33 +127,28 @@ public class Controller {
     }
 
     // Блок методов проверок для метода transferAll
-    private static int[][] ifAddressAll(Storage storageFrom, Storage storageTo) throws Exception {
+    private static void ifAddressAll(Storage storageFrom, Storage storageTo) throws Exception {
         // Хватит ли свободных ячеек для переноса
-        // 1. Есть ли свободные ячейки в хранилище + колличество + запоминаем номер таких ячеек
-        int countFreeSpaceTo = 0; // кол-во свободных ячеек приемника
-        int[] numberOfSpaceTo = new int[storageTo.getFiles().length];
+        // 1. Колличество свободных ячеек в приемнике
+        int countFreeCellTo = 0; // кол-во свободных ячеек приемника
         for (int i = 0; i < storageTo.getFiles().length; i++) {
             if (storageTo.getFiles()[i] == null) {
-                numberOfSpaceTo[countFreeSpaceTo] = i; // массив свободных адресов приемника
-                countFreeSpaceTo++;
+                countFreeCellTo++;
             }
         }
 
-        // 2. Сколько файлов переносим + адреса переносимых файлов
+        // 2. Сколько файлов переносим
         int countFilesFrom = 0; // кол-во файлов для передачи
-        int[] numberOfFilesFrom = new int[storageFrom.getFiles().length];
         for (int i = 0; i < storageFrom.getFiles().length; i++) {
             if (storageFrom.getFiles()[i] != null) {
-                numberOfFilesFrom[countFilesFrom] = i; // массив адресов файлов для передачи
                 countFilesFrom++;
             }
         }
-        if (countFilesFrom > countFreeSpaceTo) {
+
+        // Достаточно ли свободных ячеек
+        if (countFilesFrom > countFreeCellTo) {
             throw new Exception("В хранилище id=" + storageTo.getId() + " недосточно свободных ячеек");
         }
-
-        int[][] addresses = {numberOfFilesFrom, numberOfSpaceTo};
-        return addresses;
     }
 
     private static void ifFormatAll(Storage storageFrom, Storage storageTo) throws Exception {
