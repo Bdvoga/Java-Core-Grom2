@@ -1,4 +1,4 @@
-package lesson9.Ex6UserRepository;
+package lesson20.task1;
 
 public class UserRepository {
     private User[] users;
