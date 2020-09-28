@@ -50,37 +50,48 @@ public class Controller {
     }
 
     public static void transferAll(Storage storageFrom, Storage storageTo) throws Exception {
-        ifAddressAll(storageFrom, storageTo); // Наличие свободных ячеек для переноса + кол-во переносимых файлов
+        ifAddressAll(storageFrom, storageTo); // Наличие свободных ячеек для переноса
         ifFormatAll(storageFrom, storageTo); // Поддерживаются ли форматы
-        ifSpaceAll(storageFrom, storageTo);
-        IfDoubleIdAll(storageFrom, storageTo);
+        ifSpaceAll(storageFrom, storageTo); // Свободное место
+        IfDoubleIdAll(storageFrom, storageTo); // Дубль ид
 
         // Переносим файлы
-        // 1. Адреса ячеек To
-        int countFreeCellTo = 0; // кол-во свободных ячеек приемника
-        int[] numberOfCellTo = new int[storageTo.getFiles().length];
-        for (int i = 0; i < storageTo.getFiles().length; i++) {
-            if (storageTo.getFiles()[i] == null) {
-                numberOfCellTo[countFreeCellTo] = i; // массив свободных адресов приемника
-                countFreeCellTo++;
-            }
-        }
-
-        // 2. Сколько файлов переносим + адреса переносимых файлов
-        int countFilesFrom = 0; // кол-во файлов для передачи
-        int[] numberOfFilesFrom = new int[storageFrom.getFiles().length];
         for (int i = 0; i < storageFrom.getFiles().length; i++) {
             if (storageFrom.getFiles()[i] != null) {
-                numberOfFilesFrom[countFilesFrom] = i; // массив адресов файлов для передачи
-                countFilesFrom++;
+                for (int j = 0; j < storageTo.getFiles().length; j++) {
+                    if (storageTo.getFiles()[i] == null) {
+                        storageTo.getFiles()[i] = storageFrom.getFiles()[i];
+                        storageFrom.getFiles()[i] = null;
+                    }
+                }
             }
         }
 
-        // 3. Переносим
-        for (int i = 0; i < numberOfFilesFrom.length; i++) { // Проходим по массиву адресов переносимых файлов
-            storageTo.getFiles()[numberOfCellTo[i]] = storageFrom.getFiles()[numberOfFilesFrom[i]];
-            storageFrom.getFiles()[numberOfFilesFrom[i]] = null;
-        }
+//        // 1. Адреса ячеек To
+//        int countFreeCellTo = 0; // кол-во свободных ячеек приемника
+//        int[] numberOfCellTo = new int[storageTo.getFiles().length];
+//        for (int i = 0; i < storageTo.getFiles().length; i++) {
+//            if (storageTo.getFiles()[i] == null) {
+//                numberOfCellTo[countFreeCellTo] = i; // массив свободных адресов приемника
+//                countFreeCellTo++;
+//            }
+//        }
+//
+//        // 2. Сколько файлов переносим + адреса переносимых файлов
+//        int countFilesFrom = 0; // кол-во файлов для передачи
+//        int[] numberOfFilesFrom = new int[storageFrom.getFiles().length];
+//        for (int i = 0; i < storageFrom.getFiles().length; i++) {
+//            if (storageFrom.getFiles()[i] != null) {
+//                numberOfFilesFrom[countFilesFrom] = i; // массив адресов файлов для передачи
+//                countFilesFrom++;
+//            }
+//        }
+//
+//        // 3. Переносим
+//        for (int i = 0; i < numberOfFilesFrom.length; i++) { // Проходим по массиву адресов переносимых файлов
+//            storageTo.getFiles()[numberOfCellTo[i]] = storageFrom.getFiles()[numberOfFilesFrom[i]];
+//            storageFrom.getFiles()[numberOfFilesFrom[i]] = null;
+//        }
     }
 
     // Блок методов проверок для методов put и transfer
