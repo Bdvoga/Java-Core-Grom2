@@ -14,7 +14,16 @@ public class Demo {
         TransactionDAO.fillingTransaction();
 
         System.out.println(TransactionDAO.save(trNew1).getId());
-        System.out.println(TransactionDAO.save(trNew2).getId());
+        System.out.println();
+        //System.out.println(TransactionDAO.save(trNew2).getId());
+
+        TransactionDAO.transactionList();
+        System.out.println();
+
+        TransactionDAO.transactionList("Kiev");
+        System.out.println();
+
+        TransactionDAO.transactionList(3);
 
     }
 }

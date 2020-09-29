@@ -78,34 +78,42 @@ public class TransactionDAO {
         }
 
         // 5.
-        count = 0;
         for (Transaction tr : transactions) {
             if (tr == null) {
-                count = 1;
-                break;
+                return;
             }
         }
 
-        if (count == 0) {
-            throw new InternalServerException("Not enough free space " + transaction.getId() + ". Can't be saved");
+        throw new InternalServerException("Not enough free space " + transaction.getId() + ". Can't be saved");
+    }
+
+    public static void transactionList() {
+        for (Transaction tr : transactions) {
+            if (tr != null) {
+                System.out.println(tr.getId() + " " + tr.getCity() + " " + tr.getAmount() +
+                        " " + tr.getDescription() + " " + tr.getType() + " " + tr.getDateCreated());
+            }
         }
     }
 
-    Transaction[] transactionList() {
-
-        return null;
+    public static void transactionList(String city) {
+        for (Transaction tr : transactions) {
+            if (tr != null && tr.getCity().equals(city)) {
+                System.out.println(tr.getId() + " " + tr.getCity() + " " + tr.getAmount() +
+                        " " + tr.getDescription() + " " + tr.getType() + " " + tr.getDateCreated());
+            }
+        }
     }
 
-    Transaction[] transactionList(String city) {
+    public static void transactionList(int amount) {
+        for (Transaction tr : transactions) {
+            if (tr != null && tr.getAmount() == amount) {
+                System.out.println(tr.getId() + " " + tr.getCity() + " " + tr.getAmount() +
+                        " " + tr.getDescription() + " " + tr.getType() + " " + tr.getDateCreated());
+            }
+        }
 
 
-        return null;
-    }
-
-    Transaction[] transactionList(int amount) {
-
-
-        return null;
     }
 
     // Поиск транзакций за текущий день
