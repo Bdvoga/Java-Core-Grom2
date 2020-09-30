@@ -1,4 +1,4 @@
-package lesson22;
+package lesson22.ex1;
 
 public class ArrayUtils {
 
