@@ -1,5 +1,7 @@
 package lesson22.ex1;
 
+import java.util.Arrays;
+
 public class ArrayUtils {
 
     public static int maxElement(int[] array) {

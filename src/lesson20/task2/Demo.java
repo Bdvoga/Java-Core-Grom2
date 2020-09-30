@@ -17,13 +17,24 @@ public class Demo {
         System.out.println();
         //System.out.println(TransactionDAO.save(trNew2).getId());
 
-        TransactionDAO.transactionList();
+        //transactionList()
+        for (Transaction el : TransactionDAO.transactionList()) {
+            System.out.println(el.getId() + " " + el.getCity() + " " + el.getAmount() +
+                    " " + el.getDescription() + " " + el.getType() + " " + el.getDateCreated());
+        }
         System.out.println();
 
-        TransactionDAO.transactionList("Kiev");
+        //transactionList(String city)
+        for (Transaction el : TransactionDAO.transactionList("Kiev")) {
+            System.out.println(el.getId() + " " + el.getCity() + " " + el.getAmount() +
+                    " " + el.getDescription() + " " + el.getType() + " " + el.getDateCreated());
+        }
         System.out.println();
 
-        TransactionDAO.transactionList(3);
-
+        //transactionList(int amount)
+        for (Transaction el : TransactionDAO.transactionList(3)) {
+            System.out.println(el.getId() + " " + el.getCity() + " " + el.getAmount() +
+                    " " + el.getDescription() + " " + el.getType() + " " + el.getDateCreated());
+        }
     }
 }

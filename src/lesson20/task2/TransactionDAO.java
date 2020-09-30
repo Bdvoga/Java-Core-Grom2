@@ -4,6 +4,7 @@ import lesson20.task2.exception.BadRequestException;
 import lesson20.task2.exception.InternalServerException;
 import lesson20.task2.exception.LimitExceeded;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -65,15 +66,7 @@ public class TransactionDAO {
         }
 
         // 4.
-        count = 0;
-        for (String el : utils.getCities()) {
-            if (el.equals(transaction.getCity())) {
-                count = 1;
-                break;
-            }
-        }
-
-        if (count == 0) {
+        if (!Arrays.asList(utils.getCities()).contains(transaction.getCity())) {
             throw new BadRequestException("Transaction " + transaction.getId() + " to/from this city can't be saved");
         }
 
@@ -87,33 +80,65 @@ public class TransactionDAO {
         throw new InternalServerException("Not enough free space " + transaction.getId() + ". Can't be saved");
     }
 
-    public static void transactionList() {
-        for (Transaction tr : transactions) {
-            if (tr != null) {
-                System.out.println(tr.getId() + " " + tr.getCity() + " " + tr.getAmount() +
-                        " " + tr.getDescription() + " " + tr.getType() + " " + tr.getDateCreated());
+    public static Transaction[] transactionList() {
+        // определяем кол-во ненулевых элементов = длина возвращаемого массива
+        int count = 0;
+        for (Transaction el : transactions) {
+            if (el != null)
+                count++;
+        }
+
+        Transaction[] trans = new Transaction[count];
+
+        int count1 = 0;
+        for (Transaction el : transactions) {
+            if (el != null) {
+                trans[count1] = el;
+                count1++;
             }
         }
+
+        return trans;
     }
 
-    public static void transactionList(String city) {
-        for (Transaction tr : transactions) {
-            if (tr != null && tr.getCity().equals(city)) {
-                System.out.println(tr.getId() + " " + tr.getCity() + " " + tr.getAmount() +
-                        " " + tr.getDescription() + " " + tr.getType() + " " + tr.getDateCreated());
+    public static Transaction[] transactionList(String city) {
+        // определяем кол-во элементов city = длина возвращаемого массива
+        int count = 0;
+        for (Transaction el : transactions) {
+            if (el != null && el.getCity().equals(city))
+                count++;
+        }
+
+        Transaction[] trans = new Transaction[count];
+
+        int count1 = 0;
+        for (Transaction el : transactions) {
+            if (el != null && el.getCity().equals(city)) {
+                trans[count1] = el;
+                count1++;
             }
         }
+        return trans;
     }
 
-    public static void transactionList(int amount) {
-        for (Transaction tr : transactions) {
-            if (tr != null && tr.getAmount() == amount) {
-                System.out.println(tr.getId() + " " + tr.getCity() + " " + tr.getAmount() +
-                        " " + tr.getDescription() + " " + tr.getType() + " " + tr.getDateCreated());
-            }
+    public static Transaction[] transactionList(int amount) {
+        // определяем кол-во элементов amount = длина возвращаемого массива
+        int count = 0;
+        for (Transaction el : transactions) {
+            if (el != null && el.getAmount() == amount)
+                count++;
         }
 
+        Transaction[] trans = new Transaction[count];
 
+        int count1 = 0;
+        for (Transaction el : transactions) {
+            if (el != null && el.getAmount() == amount) {
+                trans[count1] = el;
+                count1++;
+            }
+        }
+        return trans;
     }
 
     // Поиск транзакций за текущий день
