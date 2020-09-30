@@ -1,4 +1,4 @@
-package lesson22.ex1;
+package lesson22.arrays;
 
 public class Demo {
     public static void main(String[] args) {

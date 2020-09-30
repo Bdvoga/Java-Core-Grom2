@@ -1,4 +1,4 @@
-package lesson20.task1.exception;
+package lesson22.repository.exception;
 
 public class BadRequestException extends Exception {
 

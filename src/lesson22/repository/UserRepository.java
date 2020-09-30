@@ -1,26 +1,13 @@
-package lesson20.task1;
+package lesson22.repository;
 
-import lesson20.task1.User;
-import lesson20.task1.exception.BadRequestException;
 import lesson20.task1.exception.InternalServerException;
-import lesson20.task1.exception.UserNotFoundException;
+import lesson22.repository.exception.BadRequestException;
+import lesson22.repository.exception.UserNotFoundException;
 
 public class UserRepository {
-    private User[] users = new User[10];
+    private static User[] users = new User[10];
 
-    public UserRepository(User[] users) {
-        this.users = users;
-    }
-
-    public User[] getUsers() {
-        return users;
-    }
-
-    public void setUsers(User[] users) {
-        this.users = users;
-    }
-
-    public User save(User user) throws Exception {
+    public static User save(User user) throws Exception{
         if (user == null)
             throw new BadRequestException("Can't save null user");
 
@@ -39,11 +26,11 @@ public class UserRepository {
                 return getUsers()[i];
             }
         }
+
         throw new InternalServerException("Not enough space to save user with id: " + user.getId());
     }
 
-    // update
-    public User update(User user) throws Exception {
+    public static User update(User user) throws Exception {
         if (user == null)
             throw new BadRequestException("Can't update null user");
 
@@ -56,11 +43,12 @@ public class UserRepository {
                 return getUsers()[i];
             }
         }
+
         throw new InternalServerException("Unexpected error");
     }
 
     // delete
-    public void delete(long id) throws Exception {
+    public static void delete(long id) throws Exception {
 
         findById(id);
 
@@ -72,13 +60,15 @@ public class UserRepository {
         }
     }
 
-    public User findById(long id) throws Exception {
+    public static User findById(long id) throws Exception {
         for (User user : users) {
-            if (user != null && id == user.getId()) {
+            if (user != null && user.getId() == id)
                 return user;
-            }
         }
-
         throw new UserNotFoundException("User with id: " + id + " not found");
+    }
+
+    public static User[] getUsers() {
+        return users;
     }
 }
