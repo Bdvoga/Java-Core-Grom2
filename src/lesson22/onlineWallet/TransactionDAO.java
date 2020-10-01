@@ -1,8 +1,8 @@
-package lesson20.task2;
+package lesson22.onlineWallet;
 
-import lesson20.task2.exception.BadRequestException;
-import lesson20.task2.exception.InternalServerException;
-import lesson20.task2.exception.LimitExceeded;
+import lesson22.onlineWallet.exception.BadRequestException;
+import lesson22.onlineWallet.exception.InternalServerException;
+import lesson22.onlineWallet.exception.LimitExceeded;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -10,9 +10,8 @@ import java.util.Date;
 
 public class TransactionDAO {
     private static Transaction[] transactions = new Transaction[10];
-    private Utils utils = new Utils();
 
-    public void fillingTransaction() {
+    public static void fillingTransaction() {
         Transaction tr1 = new Transaction(1, "Kiev", 3, "A", TransactionType.INCOME, new Date());
         Transaction tr2 = new Transaction(2, "Odessa", 3, "B", TransactionType.INCOME, new Date());
         Transaction tr3 = new Transaction(3, "Kiev", 30, "C", TransactionType.INCOME, new Date());
@@ -23,7 +22,9 @@ public class TransactionDAO {
         transactions[3] = tr4;
     }
 
-    public Transaction save(Transaction transaction) throws Exception {
+    private static Utils utils = new Utils();
+
+    public static Transaction save(Transaction transaction) throws Exception {
 //        1. сумма транзакции больше указанного лимита +
 //        2. сумма транзакций за день больше дневного лимита +
 //        3. количество транзакций за день больше указанного лимита +
@@ -43,7 +44,7 @@ public class TransactionDAO {
         throw new InternalServerException("Unexpected error");
     }
 
-    private void validate(Transaction transaction) throws Exception {
+    private static void validate(Transaction transaction) throws Exception {
         // 1.
         if (transaction.getAmount() > utils.getLimitSimpleTransactionAmount())
             throw new LimitExceeded("Transaction limit exceed " + transaction.getId() + ". Can't be saved");
@@ -79,7 +80,7 @@ public class TransactionDAO {
         throw new InternalServerException("Not enough free space " + transaction.getId() + ". Can't be saved");
     }
 
-    public Transaction[] transactionList() {
+    public static Transaction[] transactionList() {
         // определяем кол-во ненулевых элементов = длина возвращаемого массива
         int count = 0;
         for (Transaction el : transactions) {
@@ -100,7 +101,7 @@ public class TransactionDAO {
         return trans;
     }
 
-    public Transaction[] transactionList(String city) {
+    public static Transaction[] transactionList(String city) {
         // определяем кол-во элементов city = длина возвращаемого массива
         int count = 0;
         for (Transaction el : transactions) {
@@ -120,7 +121,7 @@ public class TransactionDAO {
         return trans;
     }
 
-    public Transaction[] transactionList(int amount) {
+    public static Transaction[] transactionList(int amount) {
         // определяем кол-во элементов amount = длина возвращаемого массива
         int count = 0;
         for (Transaction el : transactions) {
@@ -142,7 +143,7 @@ public class TransactionDAO {
 
     // Поиск транзакций за текущий день
     // Метод сами не пишем, тк не умеем работать с датами, используем уже готовый
-    private Transaction[] getTransactionsPerDay(Date DateOfCurTransaction) {
+    private static Transaction[] getTransactionsPerDay(Date DateOfCurTransaction) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(DateOfCurTransaction);
 
