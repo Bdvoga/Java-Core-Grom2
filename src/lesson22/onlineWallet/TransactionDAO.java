@@ -10,6 +10,7 @@ import java.util.Date;
 
 public class TransactionDAO {
     private static Transaction[] transactions = new Transaction[10];
+    //private static Utils utils = new Utils();
 
     public static void fillingTransaction() {
         Transaction tr1 = new Transaction(1, "Kiev", 3, "A", TransactionType.INCOME, new Date());
@@ -21,8 +22,6 @@ public class TransactionDAO {
         transactions[2] = tr3;
         transactions[3] = tr4;
     }
-
-    private static Utils utils = new Utils();
 
     public static Transaction save(Transaction transaction) throws Exception {
 //        1. сумма транзакции больше указанного лимита +
@@ -40,13 +39,12 @@ public class TransactionDAO {
                 return transactions[i];
             }
         }
-
         throw new InternalServerException("Unexpected error");
     }
 
     private static void validate(Transaction transaction) throws Exception {
         // 1.
-        if (transaction.getAmount() > utils.getLimitSimpleTransactionAmount())
+        if (transaction.getAmount() > Utils.getLimitSimpleTransactionAmount())
             throw new LimitExceeded("Transaction limit exceed " + transaction.getId() + ". Can't be saved");
 
         // 2. 3.
@@ -57,16 +55,16 @@ public class TransactionDAO {
             count++;
         }
 
-        if (sum + transaction.getAmount() > utils.getLimitTransactionsPerDayAmount()) {
+        if (sum + transaction.getAmount() > Utils.getLimitTransactionsPerDayAmount()) {
             throw new LimitExceeded("Transaction limit per day amount exceed " + transaction.getId() + ". Can't be saved");
         }
 
-        if (count >= utils.getLimitTransactionsPerDayCount()) {
+        if (count >= Utils.getLimitTransactionsPerDayCount()) {
             throw new LimitExceeded("Transaction limit per day count exceed " + transaction.getId() + ". Can't be saved");
         }
 
         // 4.
-        if (!Arrays.asList(utils.getCities()).contains(transaction.getCity())) {
+        if (!Arrays.asList(Utils.getCities()).contains(transaction.getCity())) {
             throw new BadRequestException("Transaction " + transaction.getId() + " to/from this city can't be saved");
         }
 

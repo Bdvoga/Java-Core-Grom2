@@ -1,27 +1,24 @@
 package lesson22.onlineWallet;
 
 public class Controller {
-    private TransactionDAO transactionDAO = new TransactionDAO();
+    //private TransactionDAO transactionDAO = new TransactionDAO();
 
-    public Transaction save(Transaction transaction) throws Exception {
-        return transactionDAO.save(transaction);
+    public static Transaction save(Transaction transaction) throws Exception {
+        return TransactionDAO.save(transaction);
     }
 
-    Transaction[] transactionList() {
+    public static Transaction[] transactionList() {
 
-        return null;
+        return TransactionDAO.transactionList();
     }
 
-    Transaction[] transactionList(String city) {
+    public static Transaction[] transactionList(String city) {
 
-
-        return null;
+        return TransactionDAO.transactionList(city);
     }
 
-    Transaction[] transactionList(int amount) {
+    public static Transaction[] transactionList(int amount) {
 
-
-        return null;
+        return TransactionDAO.transactionList(amount);
     }
-
 }
