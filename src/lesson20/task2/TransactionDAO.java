@@ -17,10 +17,12 @@ public class TransactionDAO {
         Transaction tr2 = new Transaction(2, "Odessa", 3, "B", TransactionType.INCOME, new Date());
         Transaction tr3 = new Transaction(3, "Kiev", 30, "C", TransactionType.INCOME, new Date());
         Transaction tr4 = new Transaction(4, "Odessa", 30, "D", TransactionType.INCOME, new Date());
+        Transaction tr5 = new Transaction(4, "Odessa", 30, "D", TransactionType.INCOME, new Date());
         transactions[0] = tr1;
         transactions[1] = tr2;
         transactions[2] = tr3;
         transactions[3] = tr4;
+        transactions[4] = tr5;
     }
 
     public Transaction save(Transaction transaction) throws Exception {

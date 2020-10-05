@@ -1,7 +1,7 @@
 package lesson22.repository;
 
-import lesson20.task1.exception.InternalServerException;
 import lesson22.repository.exception.BadRequestException;
+import lesson22.repository.exception.InternalServerException;
 import lesson22.repository.exception.UserNotFoundException;
 
 public class UserRepository {
