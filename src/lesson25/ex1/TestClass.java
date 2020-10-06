@@ -1,4 +1,4 @@
-package lesson25;
+package lesson25.ex1;
 
 public class TestClass <T, K, V> {
 
