@@ -1,6 +1,7 @@
 package lesson24.exercise;
 
 public class GeneralDAO<T> {
+    @SuppressWarnings("unchecked") // Аннотация для ИДЕ - ошибки в следующей строке нет (необязательна)
     private T[] array = (T[]) new Object[5];
 
     public T save(T t) {
