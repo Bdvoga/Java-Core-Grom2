@@ -1,7 +1,7 @@
 package lesson26.ex2;
 
 public class Order {
-    private long id;
+    private static long id;
     private int price;
     private String currency;
     private String itemName;
@@ -15,5 +15,23 @@ public class Order {
         this.shopIdentificator = shopIdentificator;
     }
 
+    public long getId() {
+        return id;
+    }
 
+    public int getPrice() {
+        return price;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public String getShopIdentificator() {
+        return shopIdentificator;
+    }
 }

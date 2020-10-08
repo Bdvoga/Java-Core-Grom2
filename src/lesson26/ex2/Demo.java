@@ -1,6 +1,7 @@
 package lesson26.ex2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Demo {
 
@@ -8,7 +9,18 @@ public class Demo {
 
         ArrayList<Order> arr = ArrayListTest.useList();
 
-        System.out.println(arr.toString());
+        for (Order el : arr) {
+            if (el != null) {
+                System.out.println(el.getId() + ", " + el.getPrice() + ", " +
+                        el.getCurrency() + ", " + el.getItemName() + ", " + el.getShopIdentificator());
+            }
+        }
+
+
+
+
     }
+
+
 
 }
