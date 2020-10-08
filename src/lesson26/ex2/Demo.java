@@ -1,7 +1,6 @@
 package lesson26.ex2;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Demo {
 
@@ -15,12 +14,5 @@ public class Demo {
                         el.getCurrency() + ", " + el.getItemName() + ", " + el.getShopIdentificator());
             }
         }
-
-
-
-
     }
-
-
-
 }
