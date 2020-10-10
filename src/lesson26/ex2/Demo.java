@@ -14,5 +14,7 @@ public class Demo {
                         el.getCurrency() + ", " + el.getItemName() + ", " + el.getShopIdentificator());
             }
         }
+
+        System.out.println(arr.toString());
     }
 }
