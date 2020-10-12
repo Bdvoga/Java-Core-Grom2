@@ -32,6 +32,7 @@ public class ArrayListTest {
         arrayList.addAll(arrayList1);
 
         List<Order> list = arrayList.subList(0, 2);
+
         //ArrayList<Order> list1 = arrayList.subList(0, 2);
 
         System.out.println(list.toString());
