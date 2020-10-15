@@ -1,5 +1,7 @@
 package lesson29.ex1;
 
+import java.util.Objects;
+
 public class Order {
     private long id;
     private int price;
@@ -33,6 +35,22 @@ public class Order {
 
     public String getShopIdentificator() {
         return shopIdentificator;
+    }
+
+    // переопределяем equals, hashCode
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return id == order.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     @Override

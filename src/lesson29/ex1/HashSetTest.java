@@ -1,7 +1,10 @@
 package lesson29.ex1;
 
+import lesson29.fromLesson.File;
+
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 public class HashSetTest {
@@ -16,6 +19,9 @@ public class HashSetTest {
         Order order2 = new Order(2, 200, "EUR", "b", "B");
         Order order3 = new Order(3, 300, "UAH", "c", "C");
         Order order4 = new Order(4, 400, "YEN", "d", "D");
+        Order order5 = new Order(5, 400, "YEN", "d", "D");
+        Order order6 = new Order(6, 400, "YEN", "d", "D");
+        Order order7 = new Order(7, 400, "YEN", "d", "D");
 
         orders.add(order1);
         orders.add(order2);
@@ -41,5 +47,17 @@ public class HashSetTest {
         System.out.println();
 
         System.out.println(orders.size());
+        System.out.println();
+
+        orders.add(order4);
+        orders.add(order5);
+        orders.add(order6);
+        orders.add(order7);
+        orders.add(order7);
+
+        Iterator<Order> orderIterator = orders.iterator();
+        while (orderIterator.hasNext()) {
+            System.out.println(orderIterator.next().getId());
+        }
     }
 }
