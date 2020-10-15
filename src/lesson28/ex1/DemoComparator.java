@@ -4,7 +4,7 @@ import java.util.*;
 
 public class DemoComparator {
     public static void main(String[] args) {
-        Capability capability1 = new Capability(1001, "test", "rrrr", true, new Date());
+        Capability capability1 = new Capability(1001, "test", null, true, new Date());
         Capability capability2 = new Capability(1005, "test", "rrrr", false, new Date());
         Capability capability3 = new Capability(900, "test", "rrrr1", true, new Date());
         Capability capability4 = new Capability(800, "test", "rrrr2", false, new Date());
@@ -28,7 +28,6 @@ public class DemoComparator {
 
         capabilities.sort(new FullComparator());
         System.out.println(capabilities);
-
 
 //        // Переопределяем метод для примера 2.3
 //        // Такая запись заменяет создание отдельного класса
