@@ -1,4 +1,4 @@
-package lesson30;
+package lesson30.task0;
 
 import java.util.Objects;
 

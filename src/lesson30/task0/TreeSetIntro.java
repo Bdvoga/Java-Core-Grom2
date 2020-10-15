@@ -1,11 +1,11 @@
-package lesson30;
+package lesson30.task0;
 
 import java.util.Set;
 import java.util.TreeSet;
 
 public class TreeSetIntro {
     public static void main(String[] args) {
-        Set<lesson30.File> files = new TreeSet<>();
+        Set<File> files = new TreeSet<>();
         File file1 = new File("pict.txt", 100);
         File file2 = new File("home.txt", 178);
         File file3 = new File("home555.txt", 340);
