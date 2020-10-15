@@ -14,15 +14,18 @@ public class FullComparator implements Comparator<Capability> {
         //есле dateCreated не равно - сравниваю по нему
         //если равно - объекты равны
 
-        if (!o1.getChannelName().equals(o2.getChannelName()))
+        if (o1.getChannelName() != null && o2.getChannelName() != null &&
+                !o1.getChannelName().equals(o2.getChannelName()))
             return o1.getChannelName().compareTo(o2.getChannelName());
-        else if ((o1.getFingerprint() != null && o2.getFingerprint() != null) &&
+
+        else if (o1.getFingerprint() != null && o2.getFingerprint() != null &&
                 !o1.getFingerprint().equals(o2.getFingerprint()))
             return o1.getFingerprint().compareTo(o2.getFingerprint());
-        else if (!o1.getDateCreated().equals(o2.getDateCreated()))
+
+        else if (o1.getDateCreated() != null && o2.getDateCreated() != null &&
+                !o1.getDateCreated().equals(o2.getDateCreated()))
             return o1.getDateCreated().compareTo(o2.getDateCreated());
 
         return 0;
     }
-
 }

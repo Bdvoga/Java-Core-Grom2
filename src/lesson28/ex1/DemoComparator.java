@@ -4,7 +4,7 @@ import java.util.*;
 
 public class DemoComparator {
     public static void main(String[] args) {
-        Capability capability1 = new Capability(1001, "test", null, true, new Date());
+        Capability capability1 = new Capability(1001, null, null, true, null);
         Capability capability2 = new Capability(1005, "test", "rrrr", false, new Date());
         Capability capability3 = new Capability(900, "test", "rrrr1", true, new Date());
         Capability capability4 = new Capability(800, "test", "rrrr2", false, new Date());
@@ -17,7 +17,7 @@ public class DemoComparator {
 
         System.out.println(capabilities);
 
-        capabilities.sort(new isActiveComparator());
+        //capabilities.sort(new isActiveComparator());
 
         System.out.println(capabilities);
         System.out.println();
