@@ -7,7 +7,7 @@ public class DemoComparator {
         Capability capability1 = new Capability(1001, null, null, true, null);
         Capability capability2 = new Capability(1005, "test", "rrrr", false, new Date());
         Capability capability3 = new Capability(900, "test", "rrrr1", true, new Date());
-        Capability capability4 = new Capability(800, "test", "rrrr2", false, new Date());
+        Capability capability4 = new Capability(800, "test2", "rrrr2", false, new Date());
 
         ArrayList<Capability> capabilities = new ArrayList<>();
         capabilities.add(capability4);

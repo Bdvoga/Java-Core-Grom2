@@ -11,20 +11,29 @@ public class FullComparator implements Comparator<Capability> {
         //если равно - перехожу к fingerprint
         //если fingerprint не равны - сравниваю по нему
         //если равно - перехожу к dateCreated
-        //есле dateCreated не равно - сравниваю по нему
+        //есле dateCreated не равны - сравниваю по нему
         //если равно - объекты равны
 
-        if (o1.getChannelName() != null && o2.getChannelName() != null &&
-                !o1.getChannelName().equals(o2.getChannelName()))
-            return o1.getChannelName().compareTo(o2.getChannelName());
+        if (check(o1.getChannelName(), o2.getChannelName()) != 0) {
+            return check(o1.getChannelName(), o2.getChannelName());
+        }
 
-        else if (o1.getFingerprint() != null && o2.getFingerprint() != null &&
-                !o1.getFingerprint().equals(o2.getFingerprint()))
-            return o1.getFingerprint().compareTo(o2.getFingerprint());
+        if (check(o1.getFingerprint(), o2.getFingerprint()) != 0) {
+            return check(o1.getFingerprint(), o2.getFingerprint());
+        }
 
-        else if (o1.getDateCreated() != null && o2.getDateCreated() != null &&
-                !o1.getDateCreated().equals(o2.getDateCreated()))
+        if (o1.getDateCreated() != null && o2.getDateCreated() != null &&
+                !o1.getDateCreated().equals(o2.getDateCreated())) {
             return o1.getDateCreated().compareTo(o2.getDateCreated());
+        }
+
+        return 0;
+    }
+
+    private int check(String str1, String str2) {
+        if (str1 != null && str2 != null && !str1.equals(str2)) {
+            return str1.compareTo(str2);
+        }
 
         return 0;
     }
