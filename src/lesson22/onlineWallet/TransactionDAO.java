@@ -10,7 +10,6 @@ import java.util.Date;
 
 public class TransactionDAO {
     private static Transaction[] transactions = new Transaction[10];
-    //private static Utils utils = new Utils();
 
     public static void fillingTransaction() {
         Transaction tr1 = new Transaction(1, "Kiev", 3, "A", TransactionType.INCOME, new Date());
