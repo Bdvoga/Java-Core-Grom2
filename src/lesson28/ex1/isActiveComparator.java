@@ -17,4 +17,5 @@ public class isActiveComparator implements Comparator<Capability> {
             return 1; // меняем местами
 
     }
+
 }

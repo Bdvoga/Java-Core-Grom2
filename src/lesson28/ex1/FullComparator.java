@@ -30,11 +30,19 @@ public class FullComparator implements Comparator<Capability> {
         return 0;
     }
 
-    private int check(String str1, String str2) {
-        if (str1 != null && str2 != null && !str1.equals(str2)) {
-            return str1.compareTo(str2);
+    public  <T> int check(T t1, T t2) {
+        if (t1 != null && t2 != null && !t1.equals(t2)) {
+            return t1.compareTo(t2);
         }
 
         return 0;
     }
+
+//    private int check(String str1, String str2) {
+//        if (str1 != null && str2 != null && !str1.equals(str2)) {
+//            return str1.compareTo(str2);
+//        }
+//
+//        return 0;
+//    }
 }
