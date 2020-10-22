@@ -15,6 +15,8 @@ public class DemoComparator {
         capabilities.add(capability3);
         capabilities.add(capability1);
 
+        Check<Capability> check = new Check<>();
+
         System.out.println(capabilities);
 
         //capabilities.sort(new isActiveComparator());
