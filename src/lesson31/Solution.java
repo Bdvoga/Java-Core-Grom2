@@ -12,12 +12,12 @@ public class Solution {
         System.out.println(text);
 
         // буква - ключ, кол-во повторений - значение
-        int count = 0;
+        //int count = 0;
         for (Character ch : chars) {
             if (Character.isLetter(ch) && map.get(ch) == null) {
                 map.put(ch, 1);
             } else if (Character.isLetter(ch)) {
-                count = map.get(ch) + 1;
+                int count = map.get(ch) + 1;
                 map.put(ch, count);
             }
         }
@@ -32,12 +32,12 @@ public class Solution {
         System.out.println(Arrays.toString(strings));
 
         // Слово - ключ, кол-во повторений - значение
-        int count = 0;
+        //int count = 0;
         for (String str : strings) {
             if (str.length() > 2 && map.get(str) == null) {
                 map.put(str, 1);
             } else if (str.length() > 2) {
-                count = map.get(str) + 1;
+                int count = map.get(str) + 1;
                 map.put(str, count);
             }
         }
