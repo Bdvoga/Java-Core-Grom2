@@ -5,7 +5,11 @@ public class Demo {
 
         System.out.println(Solution.countSymbols("ab1c, a2bc !!! bcd 3    d% ff"));
 
+        System.out.println(Solution.countSymbols(""));
+
         System.out.println(Solution.words("aaa abc aaa bbb bbb d vv   "));
+
+        System.out.println(Solution.words(""));
 
     }
 }
