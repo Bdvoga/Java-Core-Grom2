@@ -7,7 +7,7 @@ public class Demo {
 
         System.out.println(Solution.countSymbols(""));
 
-        System.out.println(Solution.words("aaa abc aaa bbb bbb d vv   "));
+        System.out.println(Solution.words("aaa% abc aaa bbb bbb d vv   gh34r "));
 
         System.out.println(Solution.words(""));
 
