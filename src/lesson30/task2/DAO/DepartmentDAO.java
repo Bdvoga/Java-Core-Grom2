@@ -10,8 +10,8 @@ public class DepartmentDAO {
     private static ArrayList<Department> departments = new ArrayList<>();
 
     public static void fillDepartments() {
-        Department depA = new Department(DepartmentType.A, Controller.employeesFromDepartment(DepartmentType.A));
-        Department depB = new Department(DepartmentType.B, Controller.employeesFromDepartment(DepartmentType.B));
+        Department depA = new Department(DepartmentType.A, EmployeeDAO.employeesFromDepartment(DepartmentType.A));
+        Department depB = new Department(DepartmentType.B, EmployeeDAO.employeesFromDepartment(DepartmentType.B));
 
 
     }

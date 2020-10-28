@@ -13,7 +13,7 @@ public class ProjectDAO {
         Project project2 = new Project("fName6", "lName6", CustomerDAO.getCustomers().get(1));
         Project project3 = new Project("fName6", "lName6", CustomerDAO.getCustomers().get(2));
         Project project4 = new Project("fName7", "lName7", CustomerDAO.getCustomers().get(0));
-        Project project5 = null;
+        Project project5 = new Project("fName8", "lName8", CustomerDAO.getCustomers().get(0));
 
         projects.add(project1);
         projects.add(project2);
