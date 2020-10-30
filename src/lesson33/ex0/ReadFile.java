@@ -1,4 +1,4 @@
-package lesson33.ex1;
+package lesson33.ex0;
 
 import org.apache.commons.io.IOUtils;
 import java.io.*;

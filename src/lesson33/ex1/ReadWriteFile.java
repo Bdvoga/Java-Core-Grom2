@@ -6,13 +6,13 @@ import java.io.*;
 
 public class ReadWriteFile {
 
-    private static void readFile(String path) {
-        FileReader reader;
+    public static void readFile(String path) {
+        FileReader reader = null;
         try {
             reader = new FileReader(path);
         } catch (FileNotFoundException e) {
             System.err.println("File doesn't exist");
-            //IOUtils.closeQuietly(reader);
+            IOUtils.closeQuietly(reader);
             return;
         }
 
@@ -26,30 +26,25 @@ public class ReadWriteFile {
             System.err.println("Reading from file " + path + " filed");
         } finally {
             IOUtils.closeQuietly(br);
+            IOUtils.closeQuietly(reader);
         }
     }
 
-    private static void writeFile(String path) throws InterruptedException {
+    public static void writeFile(String path, String content) {
         FileWriter writer = null;
         BufferedWriter bufferedWriter = null;
 
         try {
-
-            //Thread.sleep(5000);
             writer = new FileWriter(path, true); //работа в режиме добавления, а не перезаписи файла
             bufferedWriter = new BufferedWriter(writer);
 
             bufferedWriter.append("\n"); //перевод строки
-            bufferedWriter.append("PPPPPPPPP");
+            bufferedWriter.append(content);
         } catch (IOException e) {
             System.err.println("Can't write to file");
         } finally {
             IOUtils.closeQuietly(bufferedWriter);
             IOUtils.closeQuietly(writer);
         }
-
     }
-
-    //writeFile(String path, String content)
-
 }
