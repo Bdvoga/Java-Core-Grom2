@@ -3,7 +3,7 @@ package lesson33.ex0;
 import org.apache.commons.io.IOUtils;
 import java.io.*;
 
-public class ReadFile {
+public class ReadWriteFile {
 
     public static void main(String[] args) throws InterruptedException {
         readFile("d:/test.txt");
@@ -39,7 +39,7 @@ public class ReadFile {
 
         try {
 
-            //Thread.sleep(5000);
+            // writer = new FileWriter(new File(path)); // возможен такой вариант
             writer = new FileWriter(path, true); //работа в режиме добавления, а не перезаписи файла
             bufferedWriter = new BufferedWriter(writer);
 
