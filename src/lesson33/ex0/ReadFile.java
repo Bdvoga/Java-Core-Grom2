@@ -6,10 +6,8 @@ import java.io.*;
 public class ReadFile {
 
     public static void main(String[] args) throws InterruptedException {
-
         readFile("d:/test.txt");
         writeFile("d:/test1.txt");
-
     }
 
     private static void readFile(String path) {
