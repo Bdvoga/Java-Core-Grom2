@@ -22,7 +22,9 @@ public class Practice {
                 res.append(line);
                 res.append("\n");
             }
-            res.replace(res.length() - 1, res.length(), ""); //Удаляем последний перевод строки
+            if (res.length() != 0) {
+                res.replace(res.length() - 1, res.length(), ""); //Удаляем последний перевод строки
+            }
         } catch (FileNotFoundException e) {
             System.err.println("File doesn't exist");
         } catch (IOException e) {
@@ -33,10 +35,13 @@ public class Practice {
     }
 
     private static void writeToFile(String path, StringBuffer contentToWrite) {
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path, true))) {
-            bufferedWriter.append(contentToWrite);
-        } catch (IOException e) {
-            System.err.println("Can't write to file");
+        if (contentToWrite.length() != 0) {
+            try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path, true))) {
+                bufferedWriter.append("\n");
+                bufferedWriter.append(contentToWrite);
+            } catch (IOException e) {
+                System.err.println("Can't write to file");
+            }
         }
     }
 
@@ -57,7 +62,7 @@ public class Practice {
         }
 
         if (!fileTo.canWrite()) { // имеем ли права на запись файла
-            throw new Exception("File " + fileTo + "doesn't have permission to read");
+            throw new Exception("File " + fileTo + "doesn't have permission to write");
         }
     }
 }

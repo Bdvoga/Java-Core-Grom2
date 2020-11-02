@@ -1,17 +1,61 @@
 package lesson34.ex2;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 
 public class Solution {
 
-    public static void transferFileContent(String fileFromPath, String fileToPath) {
+    public static void transferFileContent(String fileFromPath, String fileToPath) throws Exception {
         // проверить наличие файлов - вынесли в отдельный метод validate()
         // проверить права доступа - вынесли в отдельный метод validate()
         // считать контент
         // записать контент
         // очиситить файл Фром
 
+        validate(fileFromPath, fileToPath);
+        writeToFile(fileToPath, readFromFiles(fileFromPath));
+        deleteFromFile(fileFromPath);
+
+
+    }
+
+    private static void deleteFromFile(String fileFromPath) throws Exception {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileFromPath, false))) {
+            bufferedWriter.append("");
+        } catch (FileNotFoundException e) {
+            System.err.println("Can't delete from file " + fileFromPath);
+        }
+    }
+
+    private static StringBuffer readFromFiles(String path) {
+        StringBuffer res = new StringBuffer(); // в эту переменную считываем содерж файла фром
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                res.append(line);
+                res.append("\n");
+            }
+            if (res.length() != 0) {
+                res.replace(res.length() - 1, res.length(), ""); //Удаляем последний перевод строки
+            }
+
+        } catch (FileNotFoundException e) {
+            System.err.println("File doesn't exist");
+        } catch (IOException e) {
+            System.err.println("Reading from file " + path + " filed");
+        }
+
+        return res;
+    }
+
+    private static void writeToFile(String path, StringBuffer contentToWrite) {
+        if (contentToWrite.length() != 0) {
+            try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path, true))) {
+                bufferedWriter.append("\n");
+                bufferedWriter.append(contentToWrite);
+            } catch (IOException e) {
+                System.err.println("Can't write to file");
+            }
+        }
     }
 
     private static void validate(String fileFromPath, String fileToPath) throws Exception {
@@ -31,7 +75,7 @@ public class Solution {
         }
 
         if (!fileTo.canWrite()) { // имеем ли права на чтение файла
-            throw new Exception("File " + fileTo + "doesn't have permission to read");
+            throw new Exception("File " + fileTo + "doesn't have permission to write");
         }
     }
 
