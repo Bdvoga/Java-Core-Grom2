@@ -49,11 +49,11 @@ public class Solution {
 
     private static void writeToFile(String path, StringBuffer contentToWrite) {
         if (contentToWrite.length() != 0) {
-            try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path, true))) {
-                bufferedWriter.append("\n");
-                bufferedWriter.append(contentToWrite);
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))) {
+                bw.append("\n");
+                bw.append(contentToWrite);
             } catch (IOException e) {
-                System.err.println("Can't write to file");
+                System.err.println("Can't write to file " + path);
             }
         }
     }
