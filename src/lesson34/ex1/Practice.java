@@ -11,7 +11,6 @@ public class Practice {
         // записать контент
 
         validate(fileFromPath, fileToPath);
-
         writeToFile(fileToPath, readFromFiles(fileFromPath));
     }
 
@@ -57,7 +56,7 @@ public class Practice {
             throw new Exception("File " + fileFrom + "doesn't have permission to read");
         }
 
-        if (!fileTo.canRead()) { // имеем ли права на чтение файла
+        if (!fileTo.canWrite()) { // имеем ли права на запись файла
             throw new Exception("File " + fileTo + "doesn't have permission to read");
         }
     }
