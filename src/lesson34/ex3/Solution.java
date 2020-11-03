@@ -18,15 +18,14 @@ public class Solution {
     }
 
     private static void deleteSentencesFromFile(String path, String word) {
-        //StringBuilder file = readerFromFile(path);
+        StringBuilder file = readFromFile(path);
 
         String[] sentences = readFromFile(path).toString().split("\\.");
 
         StringBuilder res = new StringBuilder();
         for (String str : sentences) {
-            if (!(str.length() > 10 && str.contains(word))) {
-                res.append(str);
-                res.append("\n");
+            if (str.length() > 10 && str.contains(word)) {
+
             }
         }
 
@@ -107,4 +106,25 @@ public class Solution {
             throw new Exception("File " + fileTo + "doesn't have permission to write");
         }
     }
+
+//    private static void deleteSentencesFromFile(String path, String word) {
+//        //StringBuilder file = readerFromFile(path);
+//
+//        String[] sentences = readFromFile(path).toString().split("\\.");
+//
+//        StringBuilder res = new StringBuilder();
+//        for (String str : sentences) {
+//            if (!(str.length() > 10 && str.contains(word))) {
+//                res.append(str);
+//                res.append("\n");
+//            }
+//        }
+//
+//        if (res.length() != 0) {
+//            res.replace(res.length() - 1, res.length(), ""); //Удаляем последний перевод строки
+//        }
+//
+//        writeToFile(path, res, false);
+//
+//    }
 }
