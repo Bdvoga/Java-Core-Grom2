@@ -6,12 +6,12 @@ import java.io.InputStreamReader;
 
 public class Solution {
 
-    public static void readNumbers() throws IOException {
+    public static int readNumbers() throws IOException {
         int n = 3;
         BufferedReader br;
         InputStreamReader reader;
 
-        while (n > 0) {
+        outerLoop: while (n > 0) {
             n--;
             reader = new InputStreamReader(System.in);
             br = new BufferedReader(reader);
@@ -22,29 +22,34 @@ public class Solution {
                 continue;
             }
 
-            countSum(str, n);
+            int sum = 0;
+            for (String el : str) {
+                if (validation(el, n)) {
+                    sum += new Integer(el);
+                } else {
+                    continue outerLoop;
+                }
+            }
+
+            return sum;
         }
 
         System.out.println("Your numbers are wrong. Number of attempts exceeded");
+        return 0;
     }
 
-    private static void countSum(String[] str, int n) {
-        int sum = 0;
-        for (String el : str) {
-            try {
-                int i = new Integer(el);
-                if (i > 100) {
-                    System.err.println("Your numbers are wrong. You have " + n + " attempts to try again");
-                    return;
-                }
-                sum += i;
-            } catch (NumberFormatException e) {
-                System.err.println("Int " + "Your numbers are wrong. You have " + n + " attempts to try again");
-                return;
+    private static boolean validation(String str, int n) {
+        try {
+            int i = new Integer(str);
+            if (i > 100) {
+                System.err.println("Your numbers are wrong. You have " + n + " attempts to try again");
+                return false;
             }
+        } catch (NumberFormatException e) {
+            System.err.println("Int " + "Your numbers are wrong. You have " + n + " attempts to try again");
+            return false;
         }
 
-        System.out.println("Amount is " + sum);
-        System.exit(0);
+        return true;
     }
 }
