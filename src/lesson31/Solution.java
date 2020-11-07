@@ -37,20 +37,10 @@ public class Solution {
     }
 
     private static void checkChar(HashMap<Character, Integer> map, Character ch) {
-        if (map.get(ch) == null) {
-            map.put(ch, 1);
-        } else {
-            int count = map.get(ch) + 1;
-            map.put(ch, count);
-        }
+        map.merge(ch, 1, (x, y) -> x + y);
     }
 
     private static void checkString(HashMap<String, Integer> map, String str) {
-        if (map.get(str) == null) {
-            map.put(str, 1);
-        } else {
-            int count = map.get(str) + 1;
-            map.put(str, count);
-        }
+        map.merge(str, 1, (x, y) -> x + y);
     }
 }
