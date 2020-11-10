@@ -38,7 +38,7 @@ public class Solution {
                 res.replace(res.length() - 1, res.length(), ""); //Удаляем последний перевод строки
             }
 
-            return null;
+            return res;
         } catch (FileNotFoundException e) {
             System.err.println("File doesn't exist");
         } catch (IOException e) {
