@@ -12,8 +12,8 @@ public class Solution {
         // очиситить файл Фром
 
         validate(fileFromPath, fileToPath);
-        writeToFile(fileToPath, readFromFiles(fileFromPath));
-        deleteFromFile(fileFromPath);
+        writeToFile(fileToPath, fileFromPath, readFromFiles(fileFromPath));
+        //deleteFromFile(fileFromPath);
 
 
     }
@@ -38,22 +38,25 @@ public class Solution {
                 res.replace(res.length() - 1, res.length(), ""); //Удаляем последний перевод строки
             }
 
+            return null;
         } catch (FileNotFoundException e) {
             System.err.println("File doesn't exist");
         } catch (IOException e) {
             System.err.println("Reading from file " + path + " filed");
         }
 
-        return res;
+        return null;
     }
 
-    private static void writeToFile(String path, StringBuffer contentToWrite) {
-        if (contentToWrite.length() != 0) {
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))) {
+    private static void writeToFile(String pathTo, String pathFrom, StringBuffer contentToWrite) throws Exception {
+        if (contentToWrite != null) {
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(pathTo, true))) {
                 bw.append("\n");
                 bw.append(contentToWrite);
+
+                deleteFromFile(pathFrom);
             } catch (IOException e) {
-                System.err.println("Can't write to file " + path);
+                System.err.println("Can't write to file " + pathTo);
             }
         }
     }
