@@ -49,7 +49,7 @@ public class Solution {
     }
 
     private static void writeToFile(String pathTo, String pathFrom, StringBuffer contentToWrite) throws Exception {
-        if (contentToWrite != null) {
+        if (contentToWrite != null && contentToWrite.length() != 0) {
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(pathTo, true))) {
                 bw.append("\n");
                 bw.append(contentToWrite);
