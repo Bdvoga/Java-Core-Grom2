@@ -17,15 +17,16 @@ public class Solution {
         deleteSentencesFromFile(fileFromPath, word);
     }
 
-    private static void deleteSentencesFromFile(String path, String word) {
+    private static void deleteSentencesFromFile(String path, String word) throws Exception {
         StringBuilder file = readFromFile(path);
 
         String[] sentences = readFromFile(path).toString().split("\\.");
 
         StringBuilder res = new StringBuilder();
         for (String str : sentences) {
-            if (str.length() > 10 && str.contains(word)) {
-
+            if (!(str.length() > 10 && str.contains(word))) {
+                res.append(str);
+                res.append("\n");
             }
         }
 
@@ -37,7 +38,7 @@ public class Solution {
 
     }
 
-    private static StringBuilder readFromFile(String path) {
+    private static StringBuilder readFromFile(String path) throws Exception {
         StringBuilder res = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line;
@@ -46,7 +47,7 @@ public class Solution {
                 res.append("\n");
             }
         } catch (IOException e) {
-            System.err.println("Reading from file " + path + " filed");
+            throw new IOException ("Reading from file " + path + " filed");
         }
 
         if (res.length() != 0) {
@@ -56,7 +57,7 @@ public class Solution {
         return res;
     }
 
-    private static StringBuilder readSentencesForTransfer(String path, String word) {
+    private static StringBuilder readSentencesForTransfer(String path, String word) throws Exception {
 
         String[] sentences = readFromFile(path).toString().split("\\.");
 
@@ -75,9 +76,9 @@ public class Solution {
         return res;
     }
 
-    private static void writeToFile(String path, StringBuilder contentToWrite, boolean append) {
+    private static void writeToFile(String path, StringBuilder contentToWrite, boolean app) {
         if (contentToWrite != null) {
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, append))) {
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, app))) {
                 bw.append("\n");
                 bw.append(contentToWrite);
             } catch (IOException e) {
@@ -106,25 +107,4 @@ public class Solution {
             throw new Exception("File " + fileTo + "doesn't have permission to write");
         }
     }
-
-//    private static void deleteSentencesFromFile(String path, String word) {
-//        //StringBuilder file = readerFromFile(path);
-//
-//        String[] sentences = readFromFile(path).toString().split("\\.");
-//
-//        StringBuilder res = new StringBuilder();
-//        for (String str : sentences) {
-//            if (!(str.length() > 10 && str.contains(word))) {
-//                res.append(str);
-//                res.append("\n");
-//            }
-//        }
-//
-//        if (res.length() != 0) {
-//            res.replace(res.length() - 1, res.length(), ""); //Удаляем последний перевод строки
-//        }
-//
-//        writeToFile(path, res, false);
-//
-//    }
 }
