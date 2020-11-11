@@ -14,8 +14,6 @@ public class Solution {
         validate(fileFromPath, fileToPath);
         writeToFile(fileToPath, fileFromPath, readFromFiles(fileFromPath));
         //deleteFromFile(fileFromPath);
-
-
     }
 
     private static void deleteFromFile(String fileFromPath) throws Exception {
@@ -26,7 +24,7 @@ public class Solution {
         }
     }
 
-    private static StringBuffer readFromFiles(String path) {
+    private static StringBuffer readFromFiles(String path) throws Exception {
         StringBuffer res = new StringBuffer(); // в эту переменную считываем содерж файла фром
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line;
@@ -37,19 +35,17 @@ public class Solution {
             if (res.length() != 0) {
                 res.replace(res.length() - 1, res.length(), ""); //Удаляем последний перевод строки
             }
-
-            return res;
         } catch (FileNotFoundException e) {
             System.err.println("File doesn't exist");
         } catch (IOException e) {
-            System.err.println("Reading from file " + path + " filed");
+            throw new IOException ("Reading from file " + path + " filed");
         }
 
-        return null;
+        return res;
     }
 
     private static void writeToFile(String pathTo, String pathFrom, StringBuffer contentToWrite) throws Exception {
-        if (contentToWrite != null && contentToWrite.length() != 0) {
+        if (contentToWrite.length() != 0) {
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(pathTo, true))) {
                 bw.append("\n");
                 bw.append(contentToWrite);
