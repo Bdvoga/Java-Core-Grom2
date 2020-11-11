@@ -4,17 +4,18 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 
 public class Solution {
 
-    public static void copyFileContent(String fileFromPath, String fileToPath) throws IOException {
+    public static void copyFileContent(String fileFromPath, String fileToPath) throws Exception {
 
         File fileFrom = new File(fileFromPath);
         File fileTo = new File(fileToPath);
         try {
             Files.copy(fileFrom.toPath(), fileTo.toPath());
-        } catch (IOException e) {
+        } catch (FileAlreadyExistsException e) {
             System.err.println("File " + fileToPath + " already exist");
         }
     }
