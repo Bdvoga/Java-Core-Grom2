@@ -13,13 +13,12 @@ public class Solution {
 
         validate(fileFromPath, fileToPath);
         writeToFile(fileToPath, fileFromPath, readFromFiles(fileFromPath));
-        //deleteFromFile(fileFromPath);
     }
 
-    private static void deleteFromFile(String fileFromPath) throws Exception {
+    private static void deleteFromFile(String fileFromPath) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileFromPath, false))) {
             bufferedWriter.append("");
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             System.err.println("Can't delete from file " + fileFromPath);
         }
     }
@@ -35,8 +34,6 @@ public class Solution {
             if (res.length() != 0) {
                 res.replace(res.length() - 1, res.length(), ""); //Удаляем последний перевод строки
             }
-        } catch (FileNotFoundException e) {
-            System.err.println("File doesn't exist");
         } catch (IOException e) {
             throw new IOException ("Reading from file " + path + " filed");
         }
@@ -44,7 +41,7 @@ public class Solution {
         return res;
     }
 
-    private static void writeToFile(String pathTo, String pathFrom, StringBuffer contentToWrite) throws Exception {
+    private static void writeToFile(String pathTo, String pathFrom, StringBuffer contentToWrite) {
         if (contentToWrite.length() != 0) {
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(pathTo, true))) {
                 bw.append("\n");
@@ -77,5 +74,4 @@ public class Solution {
             throw new Exception("File " + fileTo + "doesn't have permission to write");
         }
     }
-
 }

@@ -103,6 +103,10 @@ public class Solution {
             throw new Exception("File " + fileFrom + "doesn't have permission to read");
         }
 
+        if (!fileFrom.canWrite()) { // имеем ли права на чтение файла
+            throw new Exception("File " + fileFrom + "doesn't have permission to write");
+        }
+
         if (!fileTo.canWrite()) { // имеем ли права на чтение файла
             throw new Exception("File " + fileTo + "doesn't have permission to write");
         }
