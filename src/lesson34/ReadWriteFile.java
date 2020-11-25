@@ -6,7 +6,7 @@ import java.io.*;
 
 public class ReadWriteFile {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, IOException {
         readFile("d:/test.txt");
         writeFile("d:/test1.txt");
     }
@@ -25,7 +25,7 @@ public class ReadWriteFile {
         }
     }
 
-    private static void writeFile(String path) throws InterruptedException {
+    private static void writeFile(String path) throws IOException {
 
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path, true))) {
             bufferedWriter.append("\n"); //перевод строки
