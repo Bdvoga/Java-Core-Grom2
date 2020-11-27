@@ -20,7 +20,7 @@ public class UserService {
     }
 
         public void login(String userName, String password) throws Exception {
-        ArrayList<User> arrayList = userRepository.readFileUser("E:/Gromcode/Java Core/DB/UserDb.txt");
+        ArrayList<User> arrayList = userRepository.writeToList("E:/Gromcode/Java Core/DB/UserDb.txt");
         for (User el : arrayList) {
             if (el.getUserName().equals(userName) && el.getPassword().equals(password)) {
                 Session.setUser(el);

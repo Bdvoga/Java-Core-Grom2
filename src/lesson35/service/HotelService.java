@@ -13,14 +13,12 @@ public class HotelService {
     public ArrayList<Hotel> findHotelByName(String name) throws Exception {
         //залогинен ли юзер
         generalService.verification();
-
         return hotelRepository.findHotelByName(name);
     }
 
     public ArrayList<Hotel> findHotelByCity(String city) throws Exception {
         //залогинен ли юзер
         generalService.verification();
-
         return hotelRepository.findHotelByCity(city);
     }
 

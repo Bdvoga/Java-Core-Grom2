@@ -12,19 +12,17 @@ public class DemoUser {
     //DemoUser demoUser = new DemoUser();
 
     public static void main(String[] args) throws Exception {
-        UserRepository userRepository = new UserRepository();
         UserController userController = new UserController();
-        //маппинг для User, Hotel
 
-        ArrayList<User> users = userRepository.readFileUser("E:/Gromcode/Java Core/DB/UserDb.txt");
-        System.out.println(users);
+//        ArrayList<User> users = userRepository.writeToList("E:/Gromcode/Java Core/DB/UserDb.txt");
+//        System.out.println(users);
 
         userController.login("Adriano", "password");
         //System.out.println(Session.getUser());
 
         //register
-//        User newUser = new User(0L, "Mike", "123", "Ukraine", UserType.USER);
-//        userController.registerUser(newUser);
+        User newUser = new User(0L, "Mike2", "123", "Ukraine", UserType.USER);
+        userController.registerUser(newUser);
 
         userController.logout();
     }

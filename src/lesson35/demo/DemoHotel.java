@@ -11,14 +11,10 @@ import java.util.ArrayList;
 public class DemoHotel {
 
     public static void main(String[] args) throws Exception {
-        HotelRepository hotelRepository = new HotelRepository();
         HotelController hotelController = new HotelController();
         UserController userController = new UserController();
 
         userController.login("Adriano", "password");
-
-        ArrayList<Hotel> hotels = hotelRepository.readFileHotel("E:/Gromcode/Java Core/DB/HotelDb.txt");
-        System.out.println(hotels);
 
         //findHotelByName
         System.out.println(hotelController.findHotelByName("Zapad"));
@@ -31,7 +27,7 @@ public class DemoHotel {
         System.out.println(hotelController.addHotel(hotel));
 
         //Admin - deleteHotel
-        hotelController.deleteHotel(108);
+        hotelController.deleteHotel(110);
 
 
         userController.logout();

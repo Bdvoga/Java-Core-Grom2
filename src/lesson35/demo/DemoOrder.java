@@ -6,7 +6,6 @@ import lesson35.model.Order;
 import lesson35.repository.GeneralRepository;
 import lesson35.repository.OrderRepository;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 public class DemoOrder {
@@ -21,7 +20,7 @@ public class DemoOrder {
         Date dateFrom = generalRepository.transferDateFromFile("20-12-2020");
         Date dateTo = generalRepository.transferDateFromFile("22-12-2020");
         orderController.bookRoom(1001L, 100, dateFrom, dateTo);
-        System.out.println(orderRepository.readFileOrder("E:/Gromcode/Java Core/DB/OrderDb.txt"));
+        System.out.println(orderRepository.writeToList("E:/Gromcode/Java Core/DB/OrderDb.txt"));
 
         orderController.cancelReservation(1002L, 102L);
 

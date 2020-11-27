@@ -20,7 +20,7 @@ public class OrderService {
         generalService.verification();
 
         //Есть ли такая комната
-        ArrayList<Room> rooms = roomRepository.readFileRoom("E:/Gromcode/Java Core/DB/RoomDb.txt");
+        ArrayList<Room> rooms = roomRepository.writeToList("E:/Gromcode/Java Core/DB/RoomDb.txt");
         if (generalRepository.findById(rooms,roomId) == null) {
             throw new Exception("Такой комнаты не существует");
         }
