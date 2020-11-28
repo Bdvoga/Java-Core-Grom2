@@ -2,7 +2,6 @@ package lesson35.demo;
 
 import lesson35.controller.OrderController;
 import lesson35.controller.UserController;
-import lesson35.model.Order;
 import lesson35.repository.GeneralRepository;
 import lesson35.repository.OrderRepository;
 
