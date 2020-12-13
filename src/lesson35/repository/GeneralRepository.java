@@ -5,21 +5,20 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
-public class GeneralRepository {
-
-    // Удаление из базы по id
-    public <T extends IdEntity> void delete(ArrayList<T> arrayList, long id, String path) throws Exception {
-        arrayList.remove(findById(arrayList,id)); //Удаляем сущность из списка
-        writeListToFileBd(arrayList, path);
-    }
+public class GeneralRepository <T extends IdEntity> {
 
     // Запись в файл БД
-    public <T> void writeListToFileBd(ArrayList<T> arrayList, String path) throws Exception {
+    public <K> void writeListToFileBd(ArrayList<K> arrayList, String path) throws Exception {
+
+        ArrayList<K> arrayList1 = ???
+
         int count = arrayList.size() - 1;
+
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, false))) {
-            for (T t : arrayList) {
-                String str = t.toString();
+            for (K k : arrayList) {
+                String str = k.toString();
                 bw.append(str);
                 if (count != 0) {
                     bw.append("\n");
@@ -31,8 +30,14 @@ public class GeneralRepository {
         }
     }
 
+    // Удаление из базы по id
+    public void delete(ArrayList<T> arrayList, long id, String path) throws Exception {
+        arrayList.remove(findById(arrayList, id)); //Удаляем сущность из списка
+        writeListToFileBd(arrayList, path);
+    }
+
     //метод поиска по id любой сущности
-    public <T extends IdEntity> T findById(ArrayList<T> arrayList, long id) {
+    public T findById(ArrayList<T> arrayList, long id) {
         for (T el : arrayList) {
             if (el.getId() == id) {
                 return el;
@@ -43,26 +48,45 @@ public class GeneralRepository {
     }
 
     //Генерация id нового объекта
-    public <T extends IdEntity> long generationId(ArrayList<T> arrayList) {
-        //находим макс значение id
-        int index = 0;
-        long max = arrayList.get(0).getId();
-        for (T el : arrayList) {
-            if (arrayList.get(index).getId() > max) {
-                max = arrayList.get(index).getId();
-            }
-            index++;
-        }
+    public long generationId(ArrayList<T> arrayList) {
+        //создаем массив id
+        long[] arrayId = new long[arrayList.size()];
+        Random random = new Random();
+        long newId;
 
-        return max + 1;
+        while (true) {
+            newId = random.nextInt(10000 + 1);
+            for (long el : arrayId) {
+                if(el == newId) {
+                    break;
+                }
+            }
+            return newId;
+        }
+        //return 0;
     }
 
     public Date transferDateFromFile(String dateString) throws Exception {
         try {
-            Date date = new SimpleDateFormat("dd-MM-yyyy").parse(dateString);
-            return date;
+            return new SimpleDateFormat("dd-MM-yyyy").parse(dateString);
         } catch (ParseException e) {
             throw new Exception("Ошибка преобразования даты");
         }
+
     }
+
+    //Генерация id нового объекта 2
+//    public <T extends IdEntity> long generationId2(ArrayList<T> arrayList) {
+//        //находим макс значение id
+//        int index = 0;
+//        long max = arrayList.get(0).getId();
+//        for (T el : arrayList) {
+//            if (arrayList.get(index).getId() > max) {
+//                max = arrayList.get(index).getId();
+//            }
+//            index++;
+//        }
+//
+//        return max + 1;
+//    }
 }

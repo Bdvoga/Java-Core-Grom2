@@ -2,6 +2,8 @@ package lesson35.model;
 
 import lesson35.repository.IdEntity;
 
+import java.util.Date;
+
 public class Hotel extends IdEntity {
     private Long id;
     private String name;
@@ -19,6 +21,11 @@ public class Hotel extends IdEntity {
 
     public long getId() {
         return id;
+    }
+
+    @Override
+    public Date getDateAvailableFrom() {
+        return null;
     }
 
     public String getName() {

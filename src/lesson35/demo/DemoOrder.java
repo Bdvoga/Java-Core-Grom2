@@ -23,7 +23,6 @@ public class DemoOrder {
 
         orderController.cancelReservation(1002L, 102L);
 
-
         userController.logout();
     }
 }

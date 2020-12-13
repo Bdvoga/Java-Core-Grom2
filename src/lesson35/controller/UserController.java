@@ -29,4 +29,6 @@ public class UserController {
     public void logout() {
         Session.setUser(null);
     }
+
+
 }

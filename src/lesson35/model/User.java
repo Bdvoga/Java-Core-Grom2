@@ -2,6 +2,8 @@ package lesson35.model;
 
 import lesson35.repository.IdEntity;
 
+import java.util.Date;
+
 public class User extends IdEntity {
     private long id;
     private String userName;
@@ -20,6 +22,11 @@ public class User extends IdEntity {
     @Override
     public long getId() {
         return id;
+    }
+
+    @Override
+    public Date getDateAvailableFrom() {
+        return null;
     }
 
     public String getUserName() {

@@ -6,11 +6,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public abstract class GeneralRepositoryAbstract {
+public abstract class RepositoryAbstract {
 
-    public abstract <T> ArrayList<T> writeToList(String path) throws Exception;
+    public abstract <T> T getMappedObject(String[] object) throws Exception;
 
-    public ArrayList<String[]> readFile(String path) throws Exception {
+    //чтение данных из файла БД.тхт и запись в массив стрингов
+    public ArrayList<String[]> readFromFile(String path) throws Exception {
         ArrayList<String[]> arrayList = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line;
@@ -25,5 +26,20 @@ public abstract class GeneralRepositoryAbstract {
         }
 
         return arrayList;
+    }
+
+    public <T> ArrayList<T> getAllObjects(String path) throws Exception {
+        ArrayList<String[]> objects = readFromFile(path);
+        if (objects.size() == 0) {
+            return new ArrayList<>();
+        }
+
+        ArrayList<T> mappedObjects = new ArrayList<>();
+
+        for (String[] object : objects) {
+            mappedObjects.add(getMappedObject(object));
+        }
+
+        return mappedObjects;
     }
 }

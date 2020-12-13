@@ -29,6 +29,11 @@ public class Order extends IdEntity {
         return id;
     }
 
+    @Override
+    public Date getDateAvailableFrom() {
+        return null;
+    }
+
     public User getUser() {
         return user;
     }
