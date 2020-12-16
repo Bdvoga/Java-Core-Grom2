@@ -7,13 +7,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
-public class GeneralRepository <T extends IdEntity> {
+public class GeneralRepository <T extends IdEntity> extends RepositoryAbstract<IdEntity>{
 
     // Запись в файл БД
     public <K> void writeListToFileBd(ArrayList<K> arrayList, String path) throws Exception {
-
-        ArrayList<K> arrayList1 = ???
-
         int count = arrayList.size() - 1;
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, false))) {
@@ -31,9 +28,36 @@ public class GeneralRepository <T extends IdEntity> {
     }
 
     // Удаление из базы по id
-    public void delete(ArrayList<T> arrayList, long id, String path) throws Exception {
+    public void delete1(ArrayList<T> arrayList, long id, String path) throws Exception {
         arrayList.remove(findById(arrayList, id)); //Удаляем сущность из списка
         writeListToFileBd(arrayList, path);
+    }
+
+    public void delete(long id, String path) throws Exception {
+        ArrayList<T> arrayList = getAllObjects(path); //считываем файл БД в список
+        for (T el : arrayList) {
+            if (el == null) {
+                System.out.println("null");
+            } else {
+                System.out.println(el.toString());
+            }
+        }
+
+        arrayList.remove(findById(arrayList, id)); //удаляем объкт по id
+
+        int count = arrayList.size() - 1;
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, false))) {
+            for (T t : arrayList) {
+                String str = t.toString();
+                bw.append(str);
+                if (count != 0) {
+                    bw.append("\n");
+                }
+                count--;
+            }
+        } catch (IOException e) {
+            throw new IOException("Обшибка записи в файл " + path);
+        }
     }
 
     //метод поиска по id любой сущности
@@ -74,6 +98,12 @@ public class GeneralRepository <T extends IdEntity> {
         }
 
     }
+
+    @Override
+    public Object getMappedObject(String[] object) throws Exception {
+        return null;
+    }
+
 
     //Генерация id нового объекта 2
 //    public <T extends IdEntity> long generationId2(ArrayList<T> arrayList) {

@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class OrderRepository extends RepositoryAbstract {
+public class OrderRepository extends RepositoryAbstract<IdEntity> {
     GeneralRepository generalRepository = new GeneralRepository();
     UserRepository userRepository = new UserRepository();
     RoomRepository roomRepository = new RoomRepository();

@@ -5,7 +5,7 @@ import lesson35.model.Hotel;
 import java.io.*;
 import java.util.ArrayList;
 
-public class HotelRepository extends RepositoryAbstract {
+public class HotelRepository extends RepositoryAbstract<IdEntity> {
     GeneralRepository generalRepository = new GeneralRepository();
 
     public ArrayList<Hotel> findHotelByName(String name) throws Exception {
@@ -54,7 +54,7 @@ public class HotelRepository extends RepositoryAbstract {
 
     public void deleteHotel(long hotelId) throws Exception {
         String path = "E:/Gromcode/Java Core/DB/HotelDb.txt";
-        generalRepository.delete(getAllObjects(path),hotelId,path);
+        generalRepository.delete(hotelId,path);
     }
 
     @Override

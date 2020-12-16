@@ -5,8 +5,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
-public abstract class RepositoryAbstract {
+public abstract class RepositoryAbstract<R extends IdEntity> {
 
     public abstract <T> T getMappedObject(String[] object) throws Exception;
 
@@ -30,6 +31,11 @@ public abstract class RepositoryAbstract {
 
     public <T> ArrayList<T> getAllObjects(String path) throws Exception {
         ArrayList<String[]> objects = readFromFile(path);
+
+        for (String[] el : objects) {
+            System.out.println(Arrays.toString(el));
+        }
+
         if (objects.size() == 0) {
             return new ArrayList<>();
         }

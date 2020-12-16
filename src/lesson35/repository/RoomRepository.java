@@ -5,7 +5,7 @@ import lesson35.model.*;
 import java.io.*;
 import java.util.ArrayList;
 
-public class RoomRepository extends RepositoryAbstract {
+public class RoomRepository extends RepositoryAbstract<Room> {
     GeneralRepository generalRepository = new GeneralRepository();
     HotelRepository hotelRepository = new HotelRepository();
 
@@ -41,7 +41,7 @@ public class RoomRepository extends RepositoryAbstract {
 
     public void deleteRoom(long roomId) throws Exception {
         String path = "E:/Gromcode/Java Core/DB/RoomDb.txt";
-        generalRepository.delete(getAllObjects(path), roomId, path);
+        generalRepository.delete(roomId, path);
     }
 
     @Override
@@ -59,25 +59,4 @@ public class RoomRepository extends RepositoryAbstract {
         }
     }
 
-//    public ArrayList<Room> mapObject(String path) throws Exception {
-//        ArrayList<Room> rooms = new ArrayList<>();
-//        int count = 0; //Счетчик строк файла БД
-//        ArrayList<String[]> arrayList = readFile(path);
-//        try {
-//            for (String[] el : arrayList) {
-//                Hotel hotel = (Hotel) generalRepository.findById(hotelRepository.writeToList("E:/Gromcode/Java Core/DB/HotelDb.txt"), Long.parseLong(el[6]));
-//                Room room = new Room(Long.parseLong(el[0]), Integer.parseInt(el[1]),
-//                        Double.parseDouble(el[2]), Boolean.valueOf(el[3]),
-//                        Boolean.valueOf(el[4]), generalRepository.transferDateFromFile(el[5]), hotel);
-//                rooms.add(room);
-//                count++;
-//            }
-//        } catch (ArrayIndexOutOfBoundsException e) {
-//            throw new Exception("Неправильный формат данных в файле " + path + " в строке " + count);
-//        } catch (NumberFormatException e) {
-//            throw new Exception("Неправильный формат id в файле " + path + " в строке " + count);
-//        }
-//
-//        return rooms;
-//    }
 }

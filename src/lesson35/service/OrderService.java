@@ -20,15 +20,15 @@ public class OrderService {
         generalService.verification();
 
         //Есть ли такая комната
-        ArrayList<Room> rooms = roomRepository.writeToList("E:/Gromcode/Java Core/DB/RoomDb.txt");
-        if (generalRepository.findById(rooms,roomId) == null) {
-            throw new Exception("Такой комнаты не существует");
-        }
-
-        //Сбводна ли с даты dateFrom
-        if (generalRepository.findById(rooms,roomId).getDateAvailableFrom().getTime() > dateFrom.getTime()) {
-            throw new Exception("На указанные даты комната не доступна");
-        }
+//        ArrayList<Room> rooms = roomRepository.writeToList("E:/Gromcode/Java Core/DB/RoomDb.txt");
+//        if (generalRepository.findById(rooms,roomId) == null) {
+//            throw new Exception("Такой комнаты не существует");
+//        }
+//
+//        //Сбводна ли с даты dateFrom
+//        if (generalRepository.findById(rooms,roomId).getDateAvailableFrom().getTime() > dateFrom.getTime()) {
+//            throw new Exception("На указанные даты комната не доступна");
+//        }
 
         orderRepository.bookRoom(roomId, userId, dateFrom, dateTo);
     }

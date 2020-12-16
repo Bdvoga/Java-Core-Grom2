@@ -5,7 +5,7 @@ import lesson35.model.*;
 import java.io.*;
 import java.util.ArrayList;
 
-public class UserRepository extends RepositoryAbstract {
+public class UserRepository extends RepositoryAbstract<IdEntity> {
 
     GeneralRepository<User> generalRepository = new GeneralRepository<User>();
 
@@ -41,28 +41,16 @@ public class UserRepository extends RepositoryAbstract {
         return user;
     }
 
-    //    @Override
-//    public ArrayList<User> mapObject(String path) throws Exception {
-//        ArrayList<User> users = new ArrayList<>();
-//        int count = 0;// счетчик строк файла
-//        UserType userType;
-//        try {
-//            for (String[] el : readFile(path)) {
-//                if (el[4].equals("ADMIN")) {
-//                    userType = UserType.ADMIN;
-//                } else {
-//                    userType = UserType.USER;
-//                }
-//                User user = new User(Long.parseLong(el[0]), el[1], el[2], el[3], userType);
-//                users.add(user);
-//                count++;
-//            }
-//        } catch (ArrayIndexOutOfBoundsException e) {
-//            throw new Exception("Неправильный формат данных в файле " + path + " в строке " + count);
-//        } catch (NumberFormatException e) {
-//            throw new Exception("Неправильный формат id в файле " + path + " в строке " + count);
-//        }
-//
-//        return users;
-//    }
+    public void login(String userName, String password) throws Exception {
+        ArrayList<User> arrayList = getAllObjects("E:/Gromcode/Java Core/DB/UserDb.txt");
+        for (User el : arrayList) {
+            if (el.getUserName().equals(userName) && el.getPassword().equals(password)) {
+                Session.setUser(el);
+                return;
+            }
+        }
+        System.err.println("Данные не найдены");
+
+    }
+
 }
