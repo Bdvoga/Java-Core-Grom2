@@ -10,13 +10,12 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class OrderService {
-
     OrderRepository orderRepository = new OrderRepository();
-    GeneralRepository generalRepository = new GeneralRepository();
+    //GeneralRepository generalRepository = new GeneralRepository();
     GeneralService generalService = new GeneralService();
     RoomRepository roomRepository = new RoomRepository();
 
-    public void bookRoom(long roomId, long userId, Date dateFrom, Date dateTo) throws Exception {
+    public void bookRoom(long roomId, long userId, String dateFrom, String dateTo) throws Exception {
         generalService.verification();
 
         //Есть ли такая комната

@@ -12,7 +12,7 @@ public class OrderController {
 
     OrderService orderService = new OrderService();
 
-    public void bookRoom(long roomId, long userId, Date dateFrom, Date dateTo) throws Exception {
+    public void bookRoom(long roomId, long userId, String dateFrom, String dateTo) throws Exception {
         orderService.bookRoom(roomId, userId, dateFrom, dateTo);
     }
 

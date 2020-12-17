@@ -11,14 +11,14 @@ public class DemoOrder {
     public static void main(String[] args) throws Exception {
         OrderController orderController = new OrderController();
         OrderRepository orderRepository = new OrderRepository();
-        GeneralRepository generalRepository = new GeneralRepository();
+        //GeneralRepository generalRepository = new GeneralRepository();
         UserController userController = new UserController();
 
         userController.login("Adriano", "password");
 
-        Date dateFrom = generalRepository.transferDateFromFile("20-12-2020");
-        Date dateTo = generalRepository.transferDateFromFile("22-12-2020");
-        orderController.bookRoom(1001L, 100, dateFrom, dateTo);
+//        Date dateFrom = transferDateFromFile("20-12-2020");
+//        Date dateTo = transferDateFromFile("22-12-2020");
+        orderController.bookRoom(1001L, 100, "20-12-2020", "22-12-2020");
         //System.out.println(orderRepository.writeToList("E:/Gromcode/Java Core/DB/OrderDb.txt"));
 
         orderController.cancelReservation(1002L, 102L);

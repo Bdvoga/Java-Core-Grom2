@@ -10,23 +10,25 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class OrderRepository extends RepositoryAbstract<IdEntity> {
-    GeneralRepository generalRepository = new GeneralRepository();
+public class OrderRepository extends GeneralRepository {
+    //GeneralRepository generalRepository = new GeneralRepository();
     UserRepository userRepository = new UserRepository();
     RoomRepository roomRepository = new RoomRepository();
 
-    public void bookRoom(long roomId, long userId, Date dateFrom, Date dateTo) throws Exception {
+    public void bookRoom(long roomId, long userId, String dateFrom, String dateTo) throws Exception {
+        Date dateFromConverted = transferDateFromFile(dateFrom);
+        Date dateToConverted = transferDateFromFile(dateTo);
         String path = "E:/Gromcode/Java Core/DB/OrderDb.txt";
         ArrayList<Order> orders = getAllObjects(path);
         ArrayList<Room> rooms = roomRepository.getAllObjects("E:/Gromcode/Java Core/DB/RoomDb.txt");
-        Room room = (Room) generalRepository.findById(rooms, roomId);
+        Room room = (Room) findById(rooms, roomId);
         ArrayList<User> users = userRepository.getAllObjects("E:/Gromcode/Java Core/DB/UserDb.txt");
 
-        long orderId = generalRepository.generationId(orders);
-        User user = (User) generalRepository.findById(users, userId);
-        double moneyPaid = ((dateTo.getTime() - dateFrom.getTime()) / 86400000) * ((Room) generalRepository.findById(rooms, roomId)).getPrice();
+        long orderId = generationId(orders);
+        User user = (User) findById(users, userId);
+        double moneyPaid = ((dateToConverted.getTime() - dateFromConverted.getTime()) / 86400000) * ((Room) findById(rooms, roomId)).getPrice();
 
-        Order order = new Order(orderId, user, room, dateFrom, dateTo, moneyPaid);
+        Order order = new Order(orderId, user, room, dateFromConverted, dateToConverted, moneyPaid);
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))) {
             bw.append("\n");
@@ -43,7 +45,7 @@ public class OrderRepository extends RepositoryAbstract<IdEntity> {
                 orders.remove(el);
 
                 //TODO
-                generalRepository.writeListToFileBd(orders, "E:/Gromcode/Java Core/DB/OrderDb.txt");
+                writeListToFileBd(orders, "E:/Gromcode/Java Core/DB/OrderDb.txt");
                 return;
             }
         }
@@ -54,11 +56,11 @@ public class OrderRepository extends RepositoryAbstract<IdEntity> {
         String pathUserDb = "E:/Gromcode/Java Core/DB/UserDb.txt";
         String pathRoomDb = "E:/Gromcode/Java Core/DB/RoomDb.txt";
         try {
-            User user = (User) generalRepository.findById(userRepository.getAllObjects(pathUserDb), Long.parseLong(object[1]));
-            Room room = (Room) generalRepository.findById(roomRepository.getAllObjects(pathRoomDb), Long.parseLong(object[2]));
+            User user = (User) findById(userRepository.getAllObjects(pathUserDb), Long.parseLong(object[1]));
+            Room room = (Room) findById(roomRepository.getAllObjects(pathRoomDb), Long.parseLong(object[2]));
             return new Order(Long.parseLong(object[0]), user, room,
-                    generalRepository.transferDateFromFile(object[3]),
-                    generalRepository.transferDateFromFile(object[4]), Double.parseDouble(object[5]));
+                    transferDateFromFile(object[3]),
+                    transferDateFromFile(object[4]), Double.parseDouble(object[5]));
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new Exception("Неправильный формат данных в файле E:/Gromcode/Java Core/DB/OrderDb.txt");
         } catch (NumberFormatException e) {

@@ -17,7 +17,7 @@ public class DemoRoom {
         RoomController roomController = new RoomController();
         UserController userController = new UserController();
 
-        //userController.login("Adriano", "password");
+//        userController.login("Adriano", "password");
 
 
 

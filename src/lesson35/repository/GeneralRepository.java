@@ -4,10 +4,13 @@ import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Random;
 
-public class GeneralRepository <T extends IdEntity> {
+public abstract class GeneralRepository <T extends IdEntity, I> {
+
+    public abstract <T> T getMappedObject(String[] object) throws Exception;
 
     // Запись в файл БД
     public <K> void writeListToFileBd(ArrayList<K> arrayList, String path) throws Exception {
@@ -35,6 +38,16 @@ public class GeneralRepository <T extends IdEntity> {
 
     public void delete(long id, String path) throws Exception {
         ArrayList<T> arrayList = getAllObjects(path); //считываем файл БД в список
+
+//        for (T el : arrayList) {
+//            if (el != null) {
+//                System.out.println(el.toString());
+//            } else {
+//                System.out.println("null");
+//            }
+//
+//        }
+
         arrayList.remove(findById(arrayList, id)); //удаляем объкт по id
 
         int count = arrayList.size() - 1;
@@ -83,7 +96,6 @@ public class GeneralRepository <T extends IdEntity> {
         return arrayList;
     }
 
-
     //метод поиска по id любой сущности
     public T findById(ArrayList<T> arrayList, long id) {
         for (T el : arrayList) {
@@ -122,12 +134,6 @@ public class GeneralRepository <T extends IdEntity> {
         }
 
     }
-
-//    @Override
-//    public Object getMappedObject(String[] object) throws Exception {
-//        return null;
-//    }
-
 
     //Генерация id нового объекта 2
 //    public <T extends IdEntity> long generationId2(ArrayList<T> arrayList) {

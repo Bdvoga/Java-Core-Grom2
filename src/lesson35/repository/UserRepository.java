@@ -5,9 +5,8 @@ import lesson35.model.*;
 import java.io.*;
 import java.util.ArrayList;
 
-public class UserRepository extends RepositoryAbstract<IdEntity> {
-
-    GeneralRepository<User> generalRepository = new GeneralRepository<User>();
+public class UserRepository extends GeneralRepository<User, IdEntity> {
+    //GeneralRepository<User> generalRepository = new GeneralRepository<User>();
 
     @Override
     public User getMappedObject(String[] object) throws Exception {
@@ -29,7 +28,7 @@ public class UserRepository extends RepositoryAbstract<IdEntity> {
         // на вход подается юзер без id, id генерит система
         //save user to db (file)
         ArrayList<User> users = getAllObjects("E:/Gromcode/Java Core/DB/UserDb.txt");
-        user.setId(generalRepository.generationId(users));
+        user.setId(generationId(users));
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("E:/Gromcode/Java Core/DB/UserDb.txt", true))) {
             bw.append("\n");
