@@ -10,7 +10,7 @@ public class RoomRepository extends RepositoryAbstract<Room> {
     HotelRepository hotelRepository = new HotelRepository();
 
     public ArrayList<Room> findRooms(Filter filter) throws Exception {
-        ArrayList<Room> rooms = getAllObjects("E:/Gromcode/Java Core/DB/RoomDb.txt");
+        ArrayList<Room> rooms = generalRepository.getAllObjects("E:/Gromcode/Java Core/DB/RoomDb.txt");
         ArrayList<Room> foundRooms = new ArrayList<>();
         for (Room el : rooms) {
             if (el.getNumberOfGuests().equals(filter.getNumberOfGuests()) && el.getPrice().equals(filter.getPrice()) &&
@@ -26,7 +26,7 @@ public class RoomRepository extends RepositoryAbstract<Room> {
 
     public Room addRoom(Room room) throws Exception {
         String path = "E:/Gromcode/Java Core/DB/RoomDb.txt";
-        ArrayList<Room> rooms = getAllObjects(path);
+        ArrayList<Room> rooms = generalRepository.getAllObjects(path);
         room.setId(generalRepository.generationId(rooms));
         String str = room.toString();
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))){
@@ -47,7 +47,7 @@ public class RoomRepository extends RepositoryAbstract<Room> {
     @Override
     public Room getMappedObject(String[] object) throws Exception {
         try {
-            Hotel hotel = (Hotel) generalRepository.findById(getAllObjects("E:/Gromcode/Java Core/DB/HotelDb.txt"), Long.parseLong(object[6]));
+            Hotel hotel = (Hotel) generalRepository.findById(generalRepository.getAllObjects("E:/Gromcode/Java Core/DB/HotelDb.txt"), Long.parseLong(object[6]));
             return new Room(Long.parseLong(object[0]), Integer.parseInt(object[1]),
                     Double.parseDouble(object[2]), Boolean.valueOf(object[3]),
                     Boolean.valueOf(object[4]), generalRepository.transferDateFromFile(object[5]), hotel);

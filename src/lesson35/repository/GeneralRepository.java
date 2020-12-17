@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
-public class GeneralRepository <T extends IdEntity> extends RepositoryAbstract<IdEntity>{
+public class GeneralRepository <T extends IdEntity> {
 
     // Запись в файл БД
     public <K> void writeListToFileBd(ArrayList<K> arrayList, String path) throws Exception {
@@ -35,14 +35,6 @@ public class GeneralRepository <T extends IdEntity> extends RepositoryAbstract<I
 
     public void delete(long id, String path) throws Exception {
         ArrayList<T> arrayList = getAllObjects(path); //считываем файл БД в список
-        for (T el : arrayList) {
-            if (el == null) {
-                System.out.println("null");
-            } else {
-                System.out.println(el.toString());
-            }
-        }
-
         arrayList.remove(findById(arrayList, id)); //удаляем объкт по id
 
         int count = arrayList.size() - 1;
@@ -59,6 +51,38 @@ public class GeneralRepository <T extends IdEntity> extends RepositoryAbstract<I
             throw new IOException("Обшибка записи в файл " + path);
         }
     }
+
+    public <T> ArrayList<T> getAllObjects(String path) throws Exception {
+        ArrayList<String[]> objects = readFromFile(path);
+        if (objects.size() == 0) {
+            return new ArrayList<>();
+        }
+        ArrayList<T> mappedObjects = new ArrayList<>();
+        for (String[] object : objects) {
+            mappedObjects.add(getMappedObject(object));
+        }
+
+        return mappedObjects;
+    }
+
+    //чтение данных из файла БД.тхт и запись в массив стрингов
+    public ArrayList<String[]> readFromFile(String path) throws Exception {
+        ArrayList<String[]> arrayList = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] strings = line.split(",");
+                arrayList.add(strings);
+            }
+        } catch (FileNotFoundException e) {
+            throw new Exception("File doesn't exist");
+        } catch (IOException e) {
+            throw new IOException("Reading from file " + path + " filed");
+        }
+
+        return arrayList;
+    }
+
 
     //метод поиска по id любой сущности
     public T findById(ArrayList<T> arrayList, long id) {
@@ -99,10 +123,10 @@ public class GeneralRepository <T extends IdEntity> extends RepositoryAbstract<I
 
     }
 
-    @Override
-    public Object getMappedObject(String[] object) throws Exception {
-        return null;
-    }
+//    @Override
+//    public Object getMappedObject(String[] object) throws Exception {
+//        return null;
+//    }
 
 
     //Генерация id нового объекта 2

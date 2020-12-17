@@ -8,6 +8,10 @@ public class UserRepository {
         this.users = users;
     }
 
+    public UserRepository() {
+
+    }
+
     public User[] getUsers() {
         return users;
     }
@@ -18,6 +22,10 @@ public class UserRepository {
 
     // save
     public User save(User user) {
+        if (user == null) {
+            return null;
+        }
+
         if (findById(user.getId()) != null) {
             return null;
         }
@@ -33,6 +41,10 @@ public class UserRepository {
 
     // update
     public User update(User user) {
+        if (user == null) {
+            return null;
+        }
+
         if (findById(user.getId()) == null) {
             return null;
         }
@@ -63,10 +75,7 @@ public class UserRepository {
 
     public User findById(long id) {
         for (User el : users) {
-            if (el == null) {
-                return null;
-            }
-            if (el.getId() == id)
+            if (el != null && el.getId() == id)
                 return el;
         }
         return null;

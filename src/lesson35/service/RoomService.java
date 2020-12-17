@@ -37,7 +37,8 @@ public class RoomService {
     }
 
     public void deleteRoom(long roomId) throws Exception {
-        generalService.verificationAdmin();
+        //TODO восстановить верификацию
+        //generalService.verificationAdmin();
         roomRepository.deleteRoom(roomId);
     }
 }
